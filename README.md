@@ -8,6 +8,8 @@ https://calendar.google.com/calendar/embed?src=uwosh.edu_orvv52rs5qdthllqt33e711
 https://discord.gg/ECBnSsQ <br />
 **GoogleDoc:** <br />
 https://drive.google.com/drive/u/1/folders/1YbtDedylKl8O7FL9rifepb5PHqtPh02W <br />
+**phpMyAdmin:** <br />
+https://webdev.cs.uwosh.edu/phpmyadmin <br />
 
 > Please keep this up to date!
 
