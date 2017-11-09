@@ -10,7 +10,9 @@ https://discord.gg/ECBnSsQ <br />
 https://drive.google.com/drive/u/1/folders/1YbtDedylKl8O7FL9rifepb5PHqtPh02W <br />
 **phpMyAdmin:** <br />
 https://webdev.cs.uwosh.edu/phpmyadmin <br />
-
+**phpMyAdmin:** <br />
+Login: team1
+Password: djcjdems
 > Please keep this up to date!
 
 
