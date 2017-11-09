@@ -11,5 +11,5 @@ https://drive.google.com/drive/u/1/folders/1YbtDedylKl8O7FL9rifepb5PHqtPh02W <br
 
 > Please keep this up to date!
 
-Calvin Meier - private individual project 3
-webdev.cs.uwosh.edu/students/meierc98/pi3/home.html
+Calvin Meier - private individual project 3 <br />
+https://webdev.cs.uwosh.edu/students/meierc98/pi3/home.html
