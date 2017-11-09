@@ -15,5 +15,5 @@ https://drive.google.com/drive/u/1/folders/1YbtDedylKl8O7FL9rifepb5PHqtPh02W <br
 **Individual pindiv3 links:**<br />
 David: http://webdev.cs.uwosh.edu/students/dunkod78/pindiv3/sign_in.html<br />
 Jacob: http://webdev.cs.uwosh.edu/students/seymej72/Project3/index.html<br />
-Justin: http://webdev.cs.uwosh.edu/students/espirj96/IndividualProject3<br />
+Justin: http://webdev.cs.uwosh.edu/students/espirj96/IndividualProject3/LoginPage.html<br />
 Calvin: 
