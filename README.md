@@ -13,7 +13,7 @@ https://webdev.cs.uwosh.edu/phpmyadmin <br />
 **phpMyAdmin Login Info:** <br />
 Login: team1 <br />
 Password: djcjdems
-> Please keep this up to date!
+If That doesn't work use steam1
 
 
 **Individual pindiv3 links:**<br />
@@ -21,3 +21,5 @@ David  : http://webdev.cs.uwosh.edu/students/dunkod78/pindiv3/sign_in.html<br />
 Jacob  : http://webdev.cs.uwosh.edu/students/seymej72/Project3/index.html<br />
 Justin : http://webdev.cs.uwosh.edu/students/espirj96/IndividualProject3<br />
 Calvin : http://webdev.cs.uwosh.edu/students/meierc98/pi3/home.html<br />
+
+> Please keep me up to date
