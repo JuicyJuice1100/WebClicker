@@ -286,7 +286,7 @@
     function getSubmission($questionId, $studentId){
         global $db;
         try {
-            $query = "SELECT * FROM SubmittedSolutions WHERE InstructorId = $id";
+            $query = "SELECT * FROM SubmittedSolutions WHERE QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
         } catch (PDOException $e){
@@ -300,9 +300,9 @@
         global $db;
         try {
             $query = "INSERT INTO SubmittedSolutions
-                VALUES (?, ?, ?, ?);";
+                VALUES (?, ?, ?, ?, ?);";
             $stmt = $db->prepare($query);
-            $stmt->execute([$questionId, $studentId, $studentSubmission, $pointsEarned]);
+            $stmt->execute([DEFAULT, $questionId, $studentId, $studentSubmission, $pointsEarned]);
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when inserting " .
