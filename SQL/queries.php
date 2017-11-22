@@ -3,7 +3,7 @@
     *=============================== Question ====================================* 
     *******************************************************************************/
     function insertQuestion($id, $questionStatement, $correctAnswer, $numberOfPoints, 
-    $topicDescription, $keywords, $sectionNumber, $phpGraderCode, $numberofCorrectAnswers,
+    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberofCorrectAnswers,
     $averagePoints, $startTime, $endTime) {
         global $db;
         try {
@@ -11,7 +11,7 @@
                 VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$id, $questionStatement, $correctAnswer, $numberOfPoints, 
-            $topicDescription, $keywords, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+            $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
             $averagePoints, $startTime, $endTime]);
             return true;
         } catch (PDOException $e) {
@@ -80,7 +80,7 @@
     }
 
     function editQuestionById($id, $questionStatement, $correctAnswer, $numberOfPoints, 
-    $topicDescription, $keywords, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
     $averagePoints, $startTime, $endTime){
         global $db;
         try {
@@ -89,7 +89,7 @@
                 ,CorrectAnswer = $correctAnswer
                 ,NumberOfPoints = $numberOfPoints
                 ,TopicDescription = $topicDescription
-                ,Keywords = $keywords
+                ,Keyword = $keyword
                 ,SectionNumber = $sectionNumber
                 ,PhpGraderCode = $phpGraderCode
                 ,NumberOfCorrectAnswers = $numberOfCorrectAnswers
@@ -103,6 +103,22 @@
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when editing " .
+                "question.");
+        }
+    }
+
+    // Please note this will only search for full words not partial words
+    function getQuestionsByKeyword($keyword){
+        global $db;
+        try {
+            $query = "SELECT * FROM Question 
+                WHERE Keyword LIKE %$keyword%";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when listing " .
                 "question.");
         }
     }
@@ -286,7 +302,13 @@
     function getSubmission($questionId, $studentId){
         global $db;
         try {
-            $query = "SELECT * FROM SubmittedSolutions WHERE QuestionId = $questionId AND StudentId = $studentId";
+            $query = "SELECT StudentSubmission
+                    ,PointsEarned
+                    ,NumberOfPoints
+                    ,StudentId
+                    FROM SubmittedSolutions 
+                    INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId;
+                    WHERE QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
         } catch (PDOException $e){
