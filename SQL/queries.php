@@ -123,6 +123,20 @@
         }
     }
 
+    function getLastQuestionNumber(){
+        global $db;
+        try{
+            $query = "SELECT MAX(QuestionId) From Question";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when retrieving " .
+                "question number.");
+        }
+    }
+
     /******************************************************************************
     *================================ Student ====================================* 
     *******************************************************************************/
@@ -229,7 +243,7 @@
         }
     }
 
-    function deleteStudentById($id){
+    function deleteInstructorById($id){
         global $db;
         try {
             $query = "DELETE FROM Instructor WHERE InstructorId = $id";
@@ -243,7 +257,7 @@
         }
     }
 
-    function editStudentById($id, $username, $firstName, $lastName, $email, 
+    function editInstructorById($id, $username, $firstName, $lastName, $email, 
     $hashedPassword, $passwordChanges, $lastLogin, $lastLogout){
         global $db;
         try {
@@ -267,7 +281,7 @@
         }
     }
 
-    function getAllStudents(){
+    function getAllInstructor(){
         global $db;
         try {
             $query = "SELECT * FROM Instructor";
@@ -281,7 +295,7 @@
         }
     }
 
-    function getStudentById($id){
+    function getInstructorById($id){
         global $db;
         try {
             $query = "SELECT * FROM Instructor WHERE InstructorId = $id";
@@ -296,7 +310,7 @@
     }
 
     /******************************************************************************
-    *============================== Instructor ===================================* 
+    *============================ SubmittedSolutions ==============================* 
     *******************************************************************************/
 
     function getSubmission($questionId, $studentId){
