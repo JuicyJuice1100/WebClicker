@@ -4,15 +4,15 @@
     *******************************************************************************/
     function insertQuestion($id, $questionStatement, $correctAnswer, $numberOfPoints, 
     $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberofCorrectAnswers,
-    $averagePoints, $startTime, $endTime) {
+    $averagePoints, $startTime, $endTime, $questionStatus, $questionType) {
         global $db;
         try {
             $query = "INSERT INTO Question 
-                VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$id, $questionStatement, $correctAnswer, $numberOfPoints, 
             $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
-            $averagePoints, $startTime, $endTime]);
+            $averagePoints, $startTime, $endTime, $questionStatus, $questionType]);
             return true;
         } catch (PDOException $e) {
             db_disconnect();
@@ -81,7 +81,7 @@
 
     function editQuestionById($id, $questionStatement, $correctAnswer, $numberOfPoints, 
     $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
-    $averagePoints, $startTime, $endTime){
+    $averagePoints, $startTime, $endTime, $questionStatus, $questionType){
         global $db;
         try {
             $query = "UPDATE Question
@@ -96,6 +96,8 @@
                 ,AveragePoints = $averagePoints
                 ,StartTime = $startTime
                 ,EndTime = $endTime
+                ,QuestionStatus = $questionStatus
+                ,QuestionType = $questionType
                 WHERE QuestionId = $id";
             $stmt = $db->prepare($query);
             $stmt->execute();
