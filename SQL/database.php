@@ -1,6 +1,6 @@
 <?php
 
-  require_once('db_credentials.php');
+  require_once('dbCredentials.php');
 
   /* Connect to the database with the credentials given in the file above
      Return a handle to the PDO instance or output an error message and exit

@@ -149,8 +149,8 @@
             $query = "INSERT INTO Student 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->execute([$id, $username, $firstName, $lastName, $email, $hashedPassword
-                $passwordChanges, $lastLogin, $lastLogout])
+            $stmt->execute([$id, $username, $firstName, $lastName, $email, $hashedPassword,
+                $passwordChanges, $lastLogin, $lastLogout]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -235,8 +235,8 @@
             $query = "INSERT INTO Instructor 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
-            $stmt->execute([$id, $username, $firstName, $lastName, $email, $hashedPassword
-                $passwordChanges, $lastLogin, $lastLogout])
+            $stmt->execute([$id, $username, $firstName, $lastName, $email, $hashedPassword,
+                $passwordChanges, $lastLogin, $lastLogout]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -327,6 +327,7 @@
                     WHERE QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when listing " .
@@ -338,9 +339,10 @@
         global $db;
         try {
             $query = "INSERT INTO SubmittedSolutions
-                VALUES (?, ?, ?, ?, ?);";
+                VALUES (?, ?, ?, ?);";
             $stmt = $db->prepare($query);
-            $stmt->execute([DEFAULT, $questionId, $studentId, $studentSubmission, $pointsEarned]);
+            $stmt->execute([$questionId, $studentId, $studentSubmission, $pointsEarned]);
+            return true;
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when inserting " .
@@ -357,6 +359,7 @@
                 WHERE QuestionId = $questionId AND StudentId = $studentId"
             $stmt = $db->prepare($query);
             $stmt->execute();
+            return true;
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when editing " .
@@ -371,6 +374,7 @@
                 WHERE QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
+            return true;
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when deleting " .
