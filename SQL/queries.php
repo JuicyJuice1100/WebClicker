@@ -344,13 +344,9 @@
     function getSubmission($questionId, $studentId){
         global $db;
         try {
-            $query = "SELECT StudentSubmission
-                    ,PointsEarned
-                    ,NumberOfPoints
-                    ,StudentId
-                    FROM SubmittedSolutions 
-                    INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId;
-                    WHERE QuestionId = $questionId AND StudentId = $studentId";
+            $query = "SELECT * FROM SubmittedSolutions 
+                    INNER JOIN Question ON SubmittedSolutions.QuestionId = Question.QuestionId
+                    WHERE SubmittedSolutions.QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -365,7 +361,7 @@
         global $db;
         try {
             $query = "INSERT INTO SubmittedSolutions
-                VALUES (?, ?, ?, ?);";
+                VALUES (?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$questionId, $studentId, $studentSubmission, $pointsEarned]);
             return true;
