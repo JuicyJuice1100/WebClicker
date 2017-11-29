@@ -128,7 +128,7 @@
     function getLastQuestionNumber(){
         global $db;
         try{
-            $query = "SELECT MAX(QuestionId) From Question";
+            $query = "SELECT MAX(QuestionId) AS LastQuestionId FROM Question";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -225,6 +225,19 @@
         }
     }
 
+    function getStudentByUsername($username){
+        global $db;
+        try{
+            $query = "SELECT HashedPassword FROM Student WHERE Username = $username";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: Username does not exist");
+        }
+    }
+
     /******************************************************************************
     *============================== Instructor ===================================* 
     *******************************************************************************/
@@ -308,6 +321,19 @@
             db_disconnect();
             exit("Aborting: There was a database error when listing " .
                 "student.");
+        }
+    }
+
+    function getInstructorByUsername($username){
+        global $db;
+        try{
+            $query = "SELECT HashedPassword FROM Instructor WHERE Username = $username";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: Username does not exist");
         }
     }
 
