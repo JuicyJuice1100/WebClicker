@@ -1,48 +1,42 @@
 <?php
-/* Take student submittion (Need StudentID - in a cookie?)
-     1.Store locally
-   Query database  (Need QuestionID or look for active question?)
-     1.CorrectAnswer
-     2.NumberOfCorrectAnswer
-     3.NumberOfPoints
-   Evalutate points earned based on question type
-   Upload to database
-     1.StudentSubmission
-     2.PointsEarned
-   Query database to get each students number of points
-   Calculate Average
-     1.Upload AveragePoints
-   Redirect page back to: 
-   http://webdev.cs.uwosh.edu/students/dunkod78/pindiv3/quiz_student.html
-   
-   Include this file above the above: This loads as POST that is a GET. Add to the top of
-   the get section: If student submission set display result(submission against
-   correct answer and points earned) 
-   
-   -(Do I need to check if they have submitted a solution already)
-   -(Should be a page after submittion which shows points earned and the correct answer)
-   -How to close question? On instructors side
-   -StartTime/EndTime On Instructor side
-*/
-include 'queries.php';
-include 'dbCredentials.php';
-include 'initalize.php';
-include 'queries.php';
+require_once 'queries.php';
+require_once 'dbCredentials.php';
+require_once 'initialize.php';
 
-$studentId; //= $_COOKIE['studentId'];Get from cookie/session?
-$questionId; //= $_POST['questionId'];Assumption that its a hidden name value from form
+$studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
+$questionId = $_POST['questionId'];
 $studentSubmission = getSubmission($questionId, $studentId)['StudentSubmission'];
+$pointsEarned;
+
+/*Test here: http://webdev.cs.uwosh.edu/students/seymej72/TeamProject/grade.php 
+  Need to delete StudentSubmissionId 1 from phpMyAdmin after a submittion to 
+  retest.*/
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if(!isset($studentSubmission){
+  if(!isset($studentSubmission)){
     $question = getQuestionById($questionId);
-    $correctAnswer = question['CorrectAnswer'];
-    $numberOfCorrectAnswer = question['NumberOfCorrectAnswers'];
-    $numberOfPoints = question['NumberOfPoints'];
-    $questionType = question['questionType']; //NEED TO ADD THIS TO DATABASE!!
-    $pointsEarned; //Should default to 0 in database;
+    //echo '<pre>';
+    //print_r($question);
+    // echo '</pre>';
+    $questionStatement = $question['QuestionStatement'];
+    $correctAnswer = $question['CorrectAnswer'];
+    $numberOfPoints = $question['NumberOfPoints'];
+    $topicDescription = $question['TopicDescription'];
+    $keyword = $question['Keyword'];
+    $sectionNumber = $question['SectionNumber'];
+    $phpGraderCode = $question['PhpGraderCode'];
+    $numberOfCorrectAnswers = $question['NumberOfCorrectAnswers'];
+    $averagePoints = $question['AveragePoints'];
+    $startTime = $question['StartTime'];
+    $endTime = $question['EndTime'];
+    $questionStatus = $question['QuestionStatus'];
+    $questionType = $question['QuestionType'];
 
     $studentSubmission = $_POST["answer"]; 
+    echo "The student submitted: $studentSubmission. The correctAnswer was: ".
+    "$correctAnswer. <br />";
+
+    
     switch ($questionType) {
       case 0: //True or False
           if($studentSubmission === $correctAnswer){
@@ -88,47 +82,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           echo "There was a problem while grading the question!";
           exit();
     }
+    echo "They earned $pointsEarned point(s) out of a total of $numberOfPoints ".
+    "point(s).<br />";
+    
+    $submittedId = 1;  //Temporary Fix
+    insertSubmission($submittedId, $questionId, $studentId, 
+    $studentSubmission, $pointsEarned);
+    
+    //Redirect to same page with a GET: - Needs to be dynamic:
+    //header("Location:$_SERVER['PHP_SELF']");
   }
-  insertSubmission($questionId, $studentId, $studentSubmission, $pointsEarned);
-  //Redirect to same page with a GET: - Needs to be dynamic:
-  header("$_SERVER['PHP_SELF']");
-}
+  else {//Student already answered
+  $submission = getSubmission($questionId, $studentId);
+  $studentSubmission = $submission['StudentSubmission'];
+  $pointsEarned = $submission['PointsEarned'];
+  
+  $question = getQuestionById($questionId);
+  $correctAnswer = $question['CorrectAnswer'];
+  $numberOfPoints = $question['NumberOfPoints'];
+  
+  echo "(*Display splash message with graded info)<br /> This student already ".
+  "answered the question. They submitted: $studentSubmission. The correct ".
+  "answer was $correctAnswer. They earned $pointsEarned point(s) out of a ".
+  "total of $numberOfPoints point(s).<br />";
+  }
+}//End of: if ($_SERVER['REQUEST_METHOD'] === 'POST')
+
 else{ // ($_SERVER['REQUEST_METHOD'] === 'GET') 
-// 1.Include User Authentication and Check to make sure user signed in
-// 2.If(submitted solution set)
-//   {Display Splash Mssg)
- if(!isset($studentSubmission){
+  // 1.Include User Authentication and Check to make sure user signed in
+  // 2.If(submitted solution set)
+  //   {Display Splash Mssg)
+ if(!isset($studentSubmission)){
  echo "<div id = splashMssg>You earned $pointsEarned point(s) out of ".
       "$numberOfPoints <br />You selected $studentAnswer, and the ".
       "correct answer was $correctAnswer. </div>";
- }
-// 3.Then display question HTML
+ }// 3.Then display question HTML  
 }
 
 function openQuestion($questionId){
+  $question = getQuestionById($questionId);
+  $questionStatement = $question['QuestionStatement'];
+  $correctAnswer = $question['CorrectAnswer'];
+  $numberOfPoints = $question['NumberOfPoints'];
+  $topicDescription = $question['TopicDescription'];
+  $keyword = $question['Keyword'];
+  $sectionNumber = $question['SectionNumber'];
+  $phpGraderCode = $question['PhpGraderCode'];
+  $numberOfCorrectAnswers = $question['NumberOfCorrectAnswers'];
+  $averagePoints = $question['AveragePoints'];
   $startTime = getTimestamp();
-   editQuestionById($questionId, $status, , , , , , , , , $startTime, );
-   //Does the above work??? Will need to recount ,'s after adding status 
+  $endTime = $question['EndTime'];
+  $questionStatus = $question['QuestionStatus'];
+  $questionType = $question['QuestionType'];
+  
+  if($questionStatus !== "active"){
+    $questionStatus = "active";
+    editQuestionById($questionId, $questionStatement, $correctAnswer, 
+      $numberOfPoints, $topicDescription, $keyword, $sectionNumber, 
+      $phpGraderCode, $numberOfCorrectAnswers, $averagePoints, $startTime,
+      $endTime, $questionStatus, $questionType);
+  }
 }
 
 function closeQuestion($questionId){
   $question = getQuestionById($questionId);
-  $status = question['questionStatus'];
-  if($status === "active"){
-    $query_result = getAllSubmissionsByQuestion(); //FCN Doesn't exist yet!!
-    $avgPointsEarned = 0;
+  $questionStatement = $question['QuestionStatement'];
+  $correctAnswer = $question['CorrectAnswer'];
+  $numberOfPoints = $question['NumberOfPoints'];
+  $topicDescription = $question['TopicDescription'];
+  $keyword = $question['Keyword'];
+  $sectionNumber = $question['SectionNumber'];
+  $phpGraderCode = $question['PhpGraderCode'];
+  $numberOfCorrectAnswers = $question['NumberOfCorrectAnswers'];
+  $averagePoints;
+  $startTime = $question['StartTime'];
+  $endTime = getTimestamp();
+  $questionStatus = $question['QuestionStatus'];
+  $questionType = $question['QuestionType'];
+
+  if($questionStatus === "active"){
+    $questionStatus = "closed";
+    $query_result = getAllSubmissionsByQuestion(); 
+    $averagePoints = 0;
     $count = 0;
     foreach($query_result as $submission){
-      $avgPointsEarned += $submission['PointsEarned'];
+      $averagePoints += $submission['PointsEarned'];
       $count++;
     }
-    $avgPointsEarned = (double)$avgPointsEarned / (double)$count;
-    $endTime = getTimestamp();
-    editQuestionById($questionId, $status, , , , , , , , $averagePoints, , $endTime); 
-    //Does the above work??? Will need to recount ,'s after adding status
+    $averagePoints = (double)$averagePoints / (double)$count;
+    editQuestionById($questionId, $questionStatement, $correctAnswer, 
+      $numberOfPoints, $topicDescription, $keyword, $sectionNumber, 
+      $phpGraderCode, $numberOfCorrectAnswers, $averagePoints, $startTime,
+      $endTime, $questionStatus, $questionType);
   }
 }
-
 
 
 
