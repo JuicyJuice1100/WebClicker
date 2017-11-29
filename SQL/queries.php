@@ -128,7 +128,7 @@
     function getLastQuestionNumber(){
         global $db;
         try{
-            $query = "SELECT MAX(QuestionId) From Question";
+            $query = "SELECT MAX(QuestionId) AS LastQuestionId FROM Question";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
