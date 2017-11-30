@@ -1,4 +1,4 @@
-My important files and changes made are queries, create_new_question.php, add_new_question_instructor.html, and web_click.js
+My important files and changes made are queries.php, create_new_question.php, add_new_question_instructor.html, and web_click.js
 
 
 # WebClicker 
