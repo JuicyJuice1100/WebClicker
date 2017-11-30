@@ -82,42 +82,17 @@
                         <span> points</span>
                     </div>
 
-                    <div>
-                        <label for="correct_answers">Number of correct answers</label>
-                        <input type="number" id="correct_answers" name="correct_answers" value="1" required>
-                    </div>
-
-                    <div>
-                        <label for="start_date">Start Date</label>
-                        <input type="date" id="start_date" name="start_date" required>
-                    </div>
-
-                    <div>
-                        <label for="start_time">Start Time</label>
-                        <input type="time" id="start_time" name="start_time" required>
-                    </div>
-
-                    <div>
-                        <label for="end_date">End Date</label>
-                        <input type="date" id="end_date" name="end_date" required>
-                    </div>
-
-                    <div>
-                        <label for="end_time">End Time</label>
-                        <input type="time" id="end_time" name="end_time" required>
-                    </div>
-
                     <h1 class="centered">Question Logistics</h1>
 
                     <div>
                         <p>Select the question type:</p>
-                        <input type="radio" name="question_type" value="radio" onclick="addRadio();" required> Radio
+                        <input type="radio" name="question_type" value="1" onclick="addRadio();" required> Radio
                         <br>
-                        <input type="radio" name="question_type" value="checkbox" onclick="addCheckbox();" required> Checkbox
+                        <input type="radio" name="question_type" value="2" onclick="addCheckbox();" required> Checkbox
                         <br>
-                        <input type="radio" name="question_type" value="text" onclick="addText();" required> Text
+                        <input type="radio" name="question_type" value="3" onclick="addText();" required> Text
                         <br>
-                        <input type="radio" name="question_type" value="true_false" onclick="addTF();" required> True/False
+                        <input type="radio" name="question_type" value="0" onclick="addTF();" required> True/False
                     </div>
                 </div>
                 <div id="add_radio">
@@ -132,11 +107,6 @@
 					in num_of_correct_answers_radio -->
                         </div>
                     </div>
-
-                    <div>
-                        <span>Upload the php file for grading: </span>
-                        <input type="file" id="upload1" name="php_file_for_text_question">
-                    </div>
                 </div>
 
                 <div id="add_checkbox" class="tabcontent">
@@ -150,34 +120,21 @@
                         <!-- uses javascript to populate based on value 
 					in num_of_correct_answers_checkbox -->
                     </div>
-
-                    <div>
-                        <span>Upload the php file for grading: </span>
-                        <input type="file" id="upload2" name="php_file_for_text_question">
-                    </div>
                 </div>
 
                 <div id="add_text" class="tabcontent">
                     <div>
-                        <input type="text" id="1" name="text_question" placeholder="Enter the correct answer">
+                        <input type="text" id="1" name="answer_text" placeholder="Enter the correct answer">
                     </div>
 
-                    <div>
-                        <span>Upload the php file for grading: </span>
-                        <input type="file" id="upload3" name="php_file_for_text_question">
-                    </div>
                 </div>
+                
                 <div id="add_tf" class="tabcontent">
                     <div>
                         <p>Correct Answer</p>
-                        <input type="radio" name="truefalse" value="true"> True
+                        <input type="radio" name="answer_true_false" value="true"> True
                         <br>
-                        <input type="radio" name="truefalse" value="false"> False
-                    </div>
-
-                    <div>
-                        <span>Upload the php file for grading: </span>
-                        <input type="file" id="upload4" name="php_file_for_text_question">
+                        <input type="radio" name="answer_true_false" value="false"> False
                     </div>
                 </div>
 
