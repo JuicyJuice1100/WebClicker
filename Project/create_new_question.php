@@ -1,21 +1,31 @@
 <!-- Must pull from database what the question number is -->
-
 <?php
+
+require_once 'queries.php';
+require_once 'dbCredentials.php';
+require_once 'initialize.php';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    $question       = $_POST['question_description'];
+	
+	$questionId = getLastQuestionNumber();
+	$numberOfCorrectAnswers = 1;
+	  if($questionId['LastQuestionId'] == null){ 
+		   $questionId = 0;
+	  }else{
+		  $questionId = $questionId['LastQuestionId'] + 1;
+	  }
+	
+    $topicDescription  = $_POST['question_description'];
     $section        = $_POST['section'];
     $subSection     = $_POST['sub_section'];
     $subject        = $_POST['subject'];
-    $pointValue     = $_POST['point_value'];
-    $correctAnswers = $_POST['correct_answers'];
-    $startDate      = $_POST['correct_answers'];
-    $endDate        = $_POST['correct_answers'];
-    $startTime      = $_POST['correct_answers'];
-    $endTime        = $_POST['correct_answers'];
+    $numberOfPoints    = $_POST['point_value'];
     $questionType   = $_POST['question_type'];
+    
+    $sectionNumber = doubleval($section.".".$subSection);
+    
+    ob_start();
 ?>
-
 <!doctype html>
 
 <html lang="en">
@@ -47,91 +57,87 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php
     switch ($questionType) {
-        
-        case 'text':
+    case '3':
+    
+    $correctAnswer = $_POST['answer_text'];
 ?>
     
     <div id="content">
-    <div id="container">
-         <div class="question_in_review">
-                <h1>Q1 - Section <?php
-            echo $section;
-?>.<?php
-            echo $subSection;
-?></h1>
-                
-                    <form>                    
-                        <div class="bold">Short Answer.</div>
-                        <div><?php
-            echo $question;
-?></div>
-                        <div>
-                            <input type="text" name="answer"/>
-                        </div>
-                    </form>
-                <div class="centered">
-                    <input type="button" name="submit" value="Submit Answer"/>
-                </div>        
-        </div>            
-    </div>            
+		<div id="container">
+			 <div class="question_in_review">
+				<h1>
+					Q<?php echo $questionId; ?> - Section 
+					<?php echo $sectionNumber;?>			
+				</h1>               
+				<form>                    
+					<div class="bold">Short Answer.</div>
+					<div><?php echo $topicDescription; ?></div>
+					<div>
+						<input type="text" name="answer"/>
+					</div>
+				</form>
+				<div class="centered">
+					<input type="button" name="submit" value="Submit Answer"/>
+				</div>        
+			</div>            
+		</div>            
     </div> 
 </body>
 </html>
  
 <?php
-            break;
-        case 'true_false':
+        break;
+        case '0':
+        $correctAnswer = $_POST['answer_true_false'];
 ?>
    <div id="content">
      <div id="container">
-     <div class="question_in_review">
-            <h1>Q1 - Section <?php
-            echo $section;
-?>.<?php
-            echo $subSection;
-?></h1>
-            
-                <form>                    
-                    <div class="bold">True or False</div>
-                    <div><?php
-            echo $question;
-?></div>        
-                <div>
-                    <input type="radio" name="truefalse" value="true"> True<br>
-                    <input type="radio" name="truefalse" value="false"> False
-                </div>
-            </form>
-        </div>
-            <div class="centered">
-                <input type="button" name="submit" value="Submit Answer"/>
-            </div>        
+		 <div class="question_in_review">
+			<h1>
+				Q<?php echo $questionId; ?> - Section 
+				<?php echo $sectionNumber;?>
+			</h1>
+				
+			<form>                    
+				<div class="bold">True or False</div>
+				<div>
+					<?php echo $topicDescription; ?>
+				</div>        
+				<div>
+					<input type="radio" name="truefalse" value="true"> True<br>
+					<input type="radio" name="truefalse" value="false"> False
+				</div>
+			</form>
+			</div>
+				<div class="centered">
+					<input type="button" name="submit" value="Submit Answer"/>
+				</div>        
     </div>            
     </div>            
-</div> 
 </body>
 </html>        
 <?php
             break;
-        case 'radio':
+        case '1':
+        $correctAnswer = $_POST['answer_radio'];
 ?>
 
 <div id="content">
      <div id="container">
      <div class="question_in_review">
-            <h1>Q1 - Section <?php
-            echo $section;
-?>.<?php
-            echo $subSection;
-?></h1>
+            <h1>
+				Q<?php echo $questionId; ?> - Section 
+				<?php echo $sectionNumber;?>  			
+			</h1>
             
-                <form>                    
-                    <div class="bold">Radio(Select one answer)</div>
-                    <div><?php
-            echo $question;
-?></div>        
+            <form>                    
+                <div class="bold">Radio(Select one answer)</div>
+				<div>
+				<?php echo $topicDescription; ?>
+				</div>        
                 <div>
                 
-<?php
+<?php			
             $numAnswers = $_POST['num_of_answers_radio'] + 1;
             
             for ($i = 1; $i < $numAnswers; $i++) {
@@ -143,37 +149,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
                 </div>
             </form>
-        </div>
+	</div>
             <div class="centered">
                 <input type="button" name="submit" value="Submit Answer"/>
             </div>        
     </div>            
     </div>            
-</div> 
 </body>
 </html>        
 
 <?php
-            break;
-        case 'checkbox':
+        break;
+        case '2': 
 ?>
 <div id="content">
      <div id="container">
      <div class="question_in_review">
-            <h1>Q1 - Section <?php
-            echo $section;
-?>.<?php
-            echo $subSection;
-?></h1>
-            
-                <form>                    
-                    <div class="bold">Radio(Select one answer)</div>
-                    <div><?php
-            echo $question;
-?></div>        
-                <div>
+            <h1>
+				Q<?php echo $questionId; ?> - Section 
+				<?php echo $sectionNumber;?>  			
+			</h1>           
+            <form>                    
+                    <div class="bold">Checkbox(Select answers)</div>
+                    <div>
+						<?php echo $topicDescription;?>
+					</div>        
+			<div>
                 
 <?php
+			$numberOfCorrectAnswers = 0;
+			$correctAnswer = "";
+			for ($i = 1; $i < 10; $i++) {
+				if(isset($_POST[$i])){
+				 $numberOfCorrectAnswers++;
+				 $correctAnswer = $correctAnswer.$_POST[$i];
+				}
+			}
             $numAnswers = $_POST['num_of_answers_checkbox'] + 1;
             
             for ($i = 1; $i < $numAnswers; $i++) {
@@ -183,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
 ?>                
                     
-                </div>
+				</div>
             </form>
         </div>
             <div class="centered">
@@ -191,14 +202,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>        
     </div>            
     </div>            
-</div> 
 </body>
 </html>    
 
 
 <?php
-            break;
-            
-    }
+	break;
+	}
+       
+    
+    $questionStatement =  ob_get_contents();
+    ob_end_flush();
+
+  	 insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
+    $topicDescription, $subject, $sectionNumber, NULL, $numberOfCorrectAnswers,
+    NULL, NULL, NULL, 0, $questionType);
 }
 ?>
