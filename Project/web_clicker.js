@@ -37,7 +37,7 @@ function addRadioOptions() {
 
     for (var i = 1; i < numOfAnswers; i++) {
         htmlElements += '<input type="text" id="radio' + i + '" name="radio_question' + i + '"' +
-            'placeholder="Enter a answer" ><input type="radio" name="correct_answer" value="q' + i + '" >Correct answer'
+            'placeholder="Enter a answer" ><input type="radio" name="answer_radio" value="' + i + '" >Correct answer'
     }
 
     container.innerHTML += htmlElements;
@@ -62,7 +62,7 @@ function addCheckBoxOptions() {
 
     for (var i = 1; i < numOfAnswers; i++) {
         htmlElements += '<input type="text" id="checkbox' + i + '" name="checkbox_question' + i + '"' +
-            'placeholder="Enter a answer" ><input type="checkbox" name="correct_answer" value="q' + i + '">Correct answer'
+            'placeholder="Enter a answer" ><input type="checkbox" name="' + i + '" value="' + i + '">Correct answer'
     }
 
     container.innerHTML += htmlElements;
