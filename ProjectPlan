@@ -22,11 +22,17 @@ Meet on 11/27 to discuss progress on assigned tasks below :
            -Search/ Review Previous Questions
 _________________________________________________________________________________
 12/1
+David: Front end responsive improvement and:
 Instructor:
 Populate questions page by grabbing all questions, create a edit page that creates
 a form and uses the edit question query, create a view page for the question,
-implement, remove results page(view question will account for this), add delete question
-query to delete button
+implement, remove results page(view question will account for this) 
+Jake: combine php grader with generated html code, add delete question, activate,
+and deactivate query to corresponding buttons
+Justin:
+Create pie chart based on results
+Calvin: finish login page, change password, and make sure passwords are hashed.
+See lecture notes for 12/1 as he gave us a way to hash the password easily.
 _________________________________________________________________________________
 12/11, 12/13
 In-class Demo
