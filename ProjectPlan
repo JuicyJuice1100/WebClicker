@@ -20,7 +20,13 @@ Meet on 11/27 to discuss progress on assigned tasks below :
     
     Justin -Database and Queries
            -Search/ Review Previous Questions
-
+_________________________________________________________________________________
+12/1
+Instructor:
+Populate questions page by grabbing all questions, create a edit page that creates
+a form and uses the edit question query, create a view page for the question,
+implement, remove results page(view question will account for this), add delete question
+query to delete button
 _________________________________________________________________________________
 12/11, 12/13
 In-class Demo
