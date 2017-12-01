@@ -31,7 +31,7 @@ Jake: combine php grader with generated html code, add delete question, activate
 and deactivate query to corresponding buttons
 Justin:
 Create pie chart based on results
-Calvin: finish login page, change password, and make sure passwords are hashed.
+Calvin: finish login page(auth check), change password, and make sure passwords are hashed.
 See lecture notes for 12/1 as he gave us a way to hash the password easily.
 _________________________________________________________________________________
 12/11, 12/13
