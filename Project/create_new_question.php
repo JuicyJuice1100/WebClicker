@@ -23,6 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $questionType   = $_POST['question_type'];
     
     $sectionNumber = doubleval($section.".".$subSection);
+
+
+	$keywords  = $_POST['keywords'] . " " . $subject . " " . $sectionNumber;
+	
     
     ob_start();
 ?>
@@ -215,7 +219,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ob_end_flush();
 
   	 insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
-    $topicDescription, $subject, $sectionNumber, NULL, $numberOfCorrectAnswers,
+    $topicDescription, $keywords, $sectionNumber, NULL, $numberOfCorrectAnswers,
     NULL, NULL, NULL, 0, $questionType);
 }
 ?>
