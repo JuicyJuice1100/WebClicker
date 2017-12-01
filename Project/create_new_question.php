@@ -1,4 +1,3 @@
-<!-- Must pull from database what the question number is -->
 <?php
 
 require_once 'queries.php';
