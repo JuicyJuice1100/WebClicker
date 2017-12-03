@@ -2,18 +2,35 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
+require_once 'loadHtml.php';
+
+/*
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+    
+*/
 
 $studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
-$questionId = $_POST['questionId'];
+//$questionId = $_POST['questionId']; //Query Active Question
+$questionId = 1;
 $studentSubmission = getSubmission($questionId, $studentId)['StudentSubmission'];
-$pointsEarned;
+
+
 
 /*Test here: http://webdev.cs.uwosh.edu/students/seymej72/TeamProject/grade.php 
   Need to delete StudentSubmissionId 1 from phpMyAdmin after a submittion to 
   retest.*/
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if(!isset($studentSubmission)){
+
+
+
+  header('Location: grade.php');
+  
+  
+  
+  if(!isset($studentSubmission)){//Student has not answered - grade question
     $question = getQuestionById($questionId);
     //echo '<pre>';
     //print_r($question);
@@ -92,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Redirect to same page with a GET: - Needs to be dynamic:
     //header("Location:$_SERVER['PHP_SELF']");
   }
-  else {//Student already answered
+  else {//Student already answered - don't grade just display answer
   $submission = getSubmission($questionId, $studentId);
   $studentSubmission = $submission['StudentSubmission'];
   $pointsEarned = $submission['PointsEarned'];
@@ -112,70 +129,24 @@ else{ // ($_SERVER['REQUEST_METHOD'] === 'GET')
   // 1.Include User Authentication and Check to make sure user signed in
   // 2.If(submitted solution set)
   //   {Display Splash Mssg)
- if(!isset($studentSubmission)){
- echo "<div id = splashMssg>You earned $pointsEarned point(s) out of ".
-      "$numberOfPoints <br />You selected $studentAnswer, and the ".
-      "correct answer was $correctAnswer. </div>";
- }// 3.Then display question HTML  
-}
-
-function openQuestion($questionId){
-  $question = getQuestionById($questionId);
-  $questionStatement = $question['QuestionStatement'];
-  $correctAnswer = $question['CorrectAnswer'];
-  $numberOfPoints = $question['NumberOfPoints'];
-  $topicDescription = $question['TopicDescription'];
-  $keyword = $question['Keyword'];
-  $sectionNumber = $question['SectionNumber'];
-  $phpGraderCode = $question['PhpGraderCode'];
-  $numberOfCorrectAnswers = $question['NumberOfCorrectAnswers'];
-  $averagePoints = $question['AveragePoints'];
-  $startTime = getTimestamp();
-  $endTime = $question['EndTime'];
-  $questionStatus = $question['QuestionStatus'];
-  $questionType = $question['QuestionType'];
+  $splashMsg ="";
+ if(isset($studentSubmission)){
+  $submission = getSubmission($questionId, $studentId);
+  $pointsEarned = $submission['PointsEarned'];
   
-  if($questionStatus !== "active"){
-    $questionStatus = "active";
-    editQuestionById($questionId, $questionStatement, $correctAnswer, 
-      $numberOfPoints, $topicDescription, $keyword, $sectionNumber, 
-      $phpGraderCode, $numberOfCorrectAnswers, $averagePoints, $startTime,
-      $endTime, $questionStatus, $questionType);
-  }
-}
-
-function closeQuestion($questionId){
   $question = getQuestionById($questionId);
-  $questionStatement = $question['QuestionStatement'];
   $correctAnswer = $question['CorrectAnswer'];
   $numberOfPoints = $question['NumberOfPoints'];
-  $topicDescription = $question['TopicDescription'];
-  $keyword = $question['Keyword'];
-  $sectionNumber = $question['SectionNumber'];
-  $phpGraderCode = $question['PhpGraderCode'];
-  $numberOfCorrectAnswers = $question['NumberOfCorrectAnswers'];
-  $averagePoints;
-  $startTime = $question['StartTime'];
-  $endTime = getTimestamp();
-  $questionStatus = $question['QuestionStatus'];
-  $questionType = $question['QuestionType'];
-
-  if($questionStatus === "active"){
-    $questionStatus = "closed";
-    $query_result = getAllSubmissionsByQuestion(); 
-    $averagePoints = 0;
-    $count = 0;
-    foreach($query_result as $submission){
-      $averagePoints += $submission['PointsEarned'];
-      $count++;
-    }
-    $averagePoints = (double)$averagePoints / (double)$count;
-    editQuestionById($questionId, $questionStatement, $correctAnswer, 
-      $numberOfPoints, $topicDescription, $keyword, $sectionNumber, 
-      $phpGraderCode, $numberOfCorrectAnswers, $averagePoints, $startTime,
-      $endTime, $questionStatus, $questionType);
-  }
+  $splashMsg = "You submitted: $studentSubmission. The correct ".
+  "answer was $correctAnswer. You earned $pointsEarned point(s) out of a ".
+  "total of $numberOfPoints point(s).";
+  
+   //PUT THIS ECHO/SPLASH INTO NEW QUESTIONS
+      
+ }// 3.Then display question HTML  
+ loadHtmlFile(1, $splashMsg);
 }
+
 
 
 
