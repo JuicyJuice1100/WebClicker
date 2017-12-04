@@ -1,11 +1,9 @@
 <?php
-
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
 
 $question = getQuestionById($_POST['questionId']);
-echo $question['QuestionId'];
 
 ?>
 
@@ -84,5 +82,3 @@ echo $question['QuestionId'];
   
   </body>
 </html>
-
-
