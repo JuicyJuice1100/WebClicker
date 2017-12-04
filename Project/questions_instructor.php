@@ -1,9 +1,7 @@
 <?php
-
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-
 ?>
 
 <!doctype html>
@@ -39,7 +37,6 @@ require_once 'initialize.php';
  <div id="content">
 	 <div id="container">
 		<?php 
-
 		$questions = getAllQuestions();	 
 		$i = 0;
 		$max = count($questions);
@@ -56,7 +53,7 @@ require_once 'initialize.php';
 					
 				<div class="centered">
 					<form class="inlineBlock" action="view_question_instructor.php" method="post">
-						<input type="hidden" name="questionId" value="<?php $questions[$i]['QuestionId'];?>" />
+						<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?> " />
 						<input type="submit" value="View" />
 					</form>
 					 
@@ -105,5 +102,4 @@ require_once 'initialize.php';
 	
 	</body>
 </html>
-
 
