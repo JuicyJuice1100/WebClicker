@@ -55,8 +55,10 @@ require_once 'initialize.php';
 					<p>Class Average: <?php echo $questions[$i]['AveragePoints']. "/" . $questions[$i]['NumberOfPoints'];?></p>	
 					
 				<div class="centered">
-					<button type="button" onclick="displayQuestion(1)">
-					 View</button>
+					<form class="inlineBlock" action="view_question_instructor.php" method="post">
+						<input type="hidden" name="questionId" value="<?php $questions[$i]['QuestionId'];?>" />
+						<input type="submit" value="View" />
+					</form>
 					 
 					<button type="button" onclick="editQuestion(1)">
 					Edit</button>	 
@@ -65,6 +67,7 @@ require_once 'initialize.php';
 				<div class="centered">
 					<form class="inlineBlock" action="">
 						<input type="submit" value="Activate" />
+						
 					</form>
 					
 					<button type="button" onclick="deactivateQuestion(1)">
@@ -102,3 +105,5 @@ require_once 'initialize.php';
 	
 	</body>
 </html>
+
+
