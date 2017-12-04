@@ -34,6 +34,15 @@ Create pie chart based on results
 Calvin: finish login page(auth check), change password, and make sure passwords are hashed.
 See lecture notes for 12/1 as he gave us a way to hash the password easily.
 _________________________________________________________________________________
+12/4
+David: view question changes as discussed. Just grab question statement html and use 
+dom manipulation to append graphic and edit delete button. Implement edit/delete question.
+On delete click, open dialog with button. On button click, delete question query.
+Justin: Graphics, login, password change page
+Jacob: Connect activate / deactivate using changeQuestionStatus() function
+justin made to questions_instructor.php. dont worry about delete query, since I'm working on
+it for my view question page so i can add it.
+_________________________________________________________________________________
 12/11, 12/13
 In-class Demo
 _________________________________________________________________________________
