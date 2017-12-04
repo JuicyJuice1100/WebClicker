@@ -139,6 +139,36 @@
         }
     }
 
+    function getFirstActiveQuestion(){
+        global $db;
+        try{
+            $query = "SELECT * FROM Question WHERE QuestionStatus = 2 LIMIT 1";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when getting ".
+                "active question.");
+        }
+    }
+
+    function changeQuestionStatus($id, $status){
+        global $db;
+        try{
+            $query = "UPDATE Question
+                SET QuestionStatus = $status
+                WHERE QuestionId = $id";
+                $stmt = $db->prepare($query;
+                $stmt->execute();
+                return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when changing ".
+                "question status.");
+        }
+    }
+
     /******************************************************************************
     *================================ Student ====================================* 
     *******************************************************************************/
@@ -234,7 +264,8 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
-            exit("Aborting: Username does not exist");
+            exit("Aborting: There was a database error when listing ".
+                "student.");
         }
     }
 
