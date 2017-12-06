@@ -2,6 +2,18 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
+
+
+		if (isset($_POST['submitEdit']))
+			{
+				$section        = $_POST['section'];
+				$subSection     = $_POST['sub_section'];
+				$sectionNumber = doubleval($section.".".$subSection);
+				$keywords  = $_POST['keywords'] . " " . $_POST['subject'] . " " . $sectionNumber;
+				editQuestionById($_POST['questionId'], $_POST['question_description'], $_POST['point_value'], 
+				$keywords, $sectionNumber);
+			}
+
 ?>
 
 <!doctype html>
@@ -37,27 +49,27 @@ require_once 'initialize.php';
 	 <div id="container">
 		<?php 
 		$questions = getAllQuestions();	 
-		$i = 0;
-		$max = count($questions);
-		while ($i<$max) {	
+		$i = -1;
+		$max = count($questions)-1;
+		while ($max>$i) {	
 		
 		?>
 		<div class="question_in_review">
 		 
-					<h1>Q<?php echo $questions[$i]['QuestionId'];?> - Section <?php echo $questions[$i]['SectionNumber'];?></h1>
+					<h1>Q<?php echo $questions[$max]['QuestionId'];?> - Section <?php echo $questions[$max]['SectionNumber'];?></h1>
 					
-					<p>Description: <pre><?php echo $questions[$i]['TopicDescription'];?></pre></p>
+					<p>Description: <pre><?php echo $questions[$max]['TopicDescription'];?></pre></p>
 					
-					<p>Class Average: <?php echo $questions[$i]['AveragePoints']. "/" . $questions[$i]['NumberOfPoints'];?></p>	
+					<p>Class Average: <?php echo $questions[$max]['AveragePoints']. "/" . $questions[$max]['NumberOfPoints'];?></p>	
 					
 				<div class="centered">
 					<form class="inlineBlock" action="view_question_instructor.php" method="post">
-						<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?> " />
+						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?> " />
 						<input type="submit" value="View" />
 					</form>
 					 
 					<form class="inlineBlock" action="edit_question.php" method="post">
-						<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?> " />
+						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?> " />
 						<input type="submit" value="Edit" />
 					</form> 
 				</div>
@@ -72,14 +84,14 @@ require_once 'initialize.php';
 					 Deactivate</button>
 					 
 					<form class="inlineBlock" method="post">
-						<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?>  " />
+						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?>  " />
 						<input id="delete_question" name="delete" type="submit" value="Delete" />
 					</form>
 					
 				</div>
 		</div>   
 		 <?php
-			$i++;
+			$max = $max-1;
 	}
 	?>	
 		<?php 

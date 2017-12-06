@@ -3,7 +3,14 @@ require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
 
-$question = getQuestionById($_POST['questionId']);
+if(isset($_POST['questionId'])){
+	$question = getQuestionById($_POST['questionId']);
+}
+else{
+
+}
+	
+	
 ?>
 
 <!doctype html>
@@ -15,7 +22,7 @@ $question = getQuestionById($_POST['questionId']);
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" media="all" href="dev.css" />
 </head>
-
+<script src="./web_clicker.js"></script>
 <body>
     <header>
 		<a href="questions_instructor.html">
@@ -30,7 +37,6 @@ $question = getQuestionById($_POST['questionId']);
 				<li><a href="sign_in.html">Log out</a></li>
 				<li><a href="change_password_instructor.html">Edit Account</a></li>
 				<li><a href="add_new_question_instructor.html">Add New Question</a></li>
-				<li><a href="results_instructor.html">Results</a></li>
 				<li class="selected"><a href="questions_instructor.php">Questions</a></li>
 			</ul>
 		</nav>
@@ -39,11 +45,15 @@ $question = getQuestionById($_POST['questionId']);
  <div id="content">
 	 <div id="container">
 		
-		<form class="add_new_question" action="create_new_question.php" method="post">
+		<form class="add_new_question" action="./questions_instructor.php" method="post">
 
                 <h1>Edit Q<?php echo $question['QuestionId'];?>  - 
 				Section <?php echo $question['SectionNumber']; ?></h1>
+				<input type="hidden" name="questionId" value="<?php echo $question['QuestionId'];?>" />
+				<input type="hidden" name="section" value="<?php echo $question['SectionNumber']; ?>" />
+				<input type="hidden" name="Products" value="" />
 
+			
                 <div>Description:</div>
 
                 <textarea name="question_description" required><?php echo $question['QuestionStatement'];?></textarea>
@@ -54,7 +64,9 @@ $question = getQuestionById($_POST['questionId']);
 					<?php 				
 					$section = $question['SectionNumber'];
 					$intpart = floor( $section );  
-					$fraction = $section - $intpart; 
+					$fraction = $section - $intpart .""; 
+					
+
 					?>				
                         <label for="section">Section:</label>
                         <select id="section" name="section" required>
@@ -69,31 +81,32 @@ $question = getQuestionById($_POST['questionId']);
                         <label for="sub_section">Sub-section:</label>
                         <select id="sub_section" name="sub_section" required>
 
-                            <option value="1" <?php if ($intpart == 0.1) echo "selected"?>>1</option>
-                            <option value="2" <?php if ($intpart == 0.2) echo "selected"?>>2</option>
-                            <option value="3" <?php if ($intpart == 0.3) echo "selected"?>>3</option>
-                            <option value="4" <?php if ($intpart == 0.4) echo "selected"?>>4</option>
-                            <option value="5" <?php if ($intpart == 0.5) echo "selected"?>>5</option>
-                            <option value="6" <?php if ($intpart == 0.6) echo "selected"?>>6</option>
+                            <option value="1" <?php if ($fraction == "0.1") echo "selected"?>>1</option>
+                            <option value="2" <?php if ($fraction == "0.2") echo "selected"?>>2</option>
+                            <option value="3" <?php if ($fraction == "0.3") echo "selected"?>>3</option>
+                            <option value="4" <?php if ($fraction == "0.4") echo "selected"?>>4</option>
+                            <option value="5" <?php if ($fraction == "0.5") echo "selected"?>>5</option>
+                            <option value="6" <?php if ($fraction == "0.6") echo "selected"?>>6</option>
                         </select>
 						
 						<?php 
 						$subject = 0;
-						if (strpos($question['Keyword'], 'HTML') !== false){ 
+						if (preg_match('/HTML/',$question['Keyword'])){ 
 							$subject = 1;
 						}
-						else if (strpos($question['Keyword'], 'CSS' !== false)){
+						else if (preg_match('/CSS/',$question['Keyword'])){
 							$subject = 2;
 						}
-						else if (strpos($question['Keyword'], 'PHP' !== false)){
+						else if (preg_match('/PHP/',$question['Keyword'])){
 							$subject = 3;
 						}
-						else if (strpos($question['Keyword'], 'Javascript' !== false)){
+						else if (preg_match('/Javascript/',$question['Keyword'])){
 							$subject = 4;
 						}
-						else if (strpos($question['Keyword'], 'Databases' !== false)){
+						else if (preg_match('/Databases/',$question['Keyword'])){
 							$subject = 5;
 						}
+
 						?>
                         <label for="subject">Subject:</label>
                         <select id="subject" name="subject" required>
@@ -114,68 +127,12 @@ $question = getQuestionById($_POST['questionId']);
 					<div><label for="point_value">Keywords(separated by spaces):</label></div>
 						<input type="text" name="keywords" value="<?php echo $question['Keyword']; ?>">
                     </div>
-
-                    <h1 class="centered">Question Logistics</h1>
-
-                    <div>
-                        <p>Select the question type:</p>
-                        <input type="radio" name="question_type" value="1" onclick="addRadio();" required> Radio
-                        <br>
-                        <input type="radio" name="question_type" value="2" onclick="addCheckbox();" required> Checkbox
-                        <br>
-                        <input type="radio" name="question_type" value="3" onclick="addText();" required> Text
-                        <br>
-                        <input type="radio" name="question_type" value="0" onclick="addTF();" required> True/False
-                    </div>
-                </div>
-                <div id="add_radio">
-                    <div>
-                        <div>
-                            <span>Number of answers: </span>
-                            <input type="number" name="num_of_answers_radio" onchange="addRadioOptions()" id="num_of_answers_radio" value="4">
-                        </div>
-
-                        <div id="radio_container">
-                            <!-- uses javascript to populate based on value 
-					in num_of_correct_answers_radio -->
-                        </div>
-                    </div>
-                </div>
-
-                <div id="add_checkbox" class="tabcontent">
-
-                    <div>
-                        <span>Number of answers: </span>
-                        <input type="number" name="num_of_answers_checkbox" onchange="addCheckBoxOptions()" id="num_of_answers_checkbox" value="4">
-                    </div>
-
-                    <div id="checkbox_container">
-                        <!-- uses javascript to populate based on value 
-					in num_of_correct_answers_checkbox -->
-                    </div>
-                </div>
-
-                <div id="add_text" class="tabcontent">
-                    <div>
-                        <input type="text" id="1" name="answer_text" placeholder="Enter the correct answer">
-                    </div>
-
-                </div>
-                
-                <div id="add_tf" class="tabcontent">
-                    <div>
-                        <p>Correct Answer</p>
-                        <input type="radio" name="answer_true_false" value="true"> True
-                        <br>
-                        <input type="radio" name="answer_true_false" value="false"> False
-                    </div>
-                </div>
+               
 
                 <div class="centered">
-                    <input type="submit" name="submit" value="Submit Changes">
+                    <input type="submit" name="submitEdit" value="Submit Changes">
                 </div>
-            </form>
-			 		
+            </form>		 
 	</div>    		
 </div>    		
 
