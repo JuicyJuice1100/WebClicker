@@ -78,6 +78,7 @@ $question = getQuestionById($_POST['questionId']);
                         </select>
 						
 						<?php 
+						$subject = 0;
 						if (strpos($question['Keyword'], 'HTML') !== false){ 
 							$subject = 1;
 						}
