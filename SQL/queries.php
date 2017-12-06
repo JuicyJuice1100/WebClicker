@@ -417,7 +417,7 @@
     function insertSubmission($questionId, $studentId, $studentSubmission, $pointsEarned){
         global $db;
         try {
-            $query = "INSERT INTO SubmittedSolutions
+            $query = "INSERT INTO SubmittedSolutions (QuestionId, StudentId, StudentSubmission, PointsEarned)
                 VALUES (?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$questionId, $studentId, $studentSubmission, $pointsEarned]);
