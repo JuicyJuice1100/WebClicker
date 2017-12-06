@@ -43,8 +43,10 @@ $question = getQuestionById($_POST['questionId']);
 			<p><?php echo $question['QuestionStatement']; ?>
 			</p>
 			<div class="centered">
-				<button id="edit" type="button" onclick="editQuestion(1)">
-				Edit</button>	
+				<form class="inlineBlock" action="edit_question.php" method="post">
+						<input type="hidden" name="questionId" value="<?php echo $question['QuestionId'];?>  " />
+						<input type="submit" value="Edit" />
+					</form> 	
 				<button class="delete_question" type="button" onclick="deleteQuestion(1)">
 				Delete</button>
 			</div>	
