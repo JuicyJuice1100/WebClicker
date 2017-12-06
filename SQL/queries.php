@@ -141,7 +141,7 @@
 
     function getFirstActiveQuestion(){
         global $db;
-        try{
+        try
             $query = "SELECT * FROM Question WHERE QuestionStatus = 2 LIMIT 1";
             $stmt = $db->prepare($query);
             $stmt->execute();
@@ -159,7 +159,7 @@
             $query = "UPDATE Question
                 SET QuestionStatus = $status
                 WHERE QuestionId = $id";
-                $stmt = $db->prepare($query;
+                $stmt = $db->prepare($query);
                 $stmt->execute();
                 return true;
         } catch (PDOException $e){
@@ -228,16 +228,19 @@
     }
 
     function editStudentPassword($username, $hashedPassword){
-        $query = "UPDATE Student
-                SET hashedPassword = $hashedPassword
-                PasswordChanges = PasswordChanges + 1
-                WHERE Username = $username";
-        $stmt = $db->prepare($query);
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e){
-        db_disconnect();
-        exit("Aborting: There was a database error when changing password");
+        try{
+            global $db;
+            $query = "UPDATE Student
+                    SET hashedPassword = $hashedPassword
+                    PasswordChanges = PasswordChanges + 1
+                    WHERE Username = $username";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when changing password");
+        }
     }
 
     function getAllStudents(){
@@ -341,16 +344,19 @@
     }
 
     function editInstructorPassword($username, $hashedPassword){
-        $query = "UPDATE Instructor
-                SET hashedPassword = $hashedPassword
-                PasswordChanges = PasswordChanges + 1
-                WHERE Username = $username";
-        $stmt = $db->prepare($query);
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e){
-        db_disconnect();
-        exit("Aborting: There was a database error when changing password");
+        try{
+            global $db;
+            $query = "UPDATE Instructor
+                    SET hashedPassword = $hashedPassword
+                    PasswordChanges = PasswordChanges + 1
+                    WHERE Username = $username";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when changing password");
+        }
     }
 
     function getAllInstructor(){
@@ -435,7 +441,7 @@
             $query = "UPDATE SubmittedSolutions
                 SET StudentSubmission = $studentSubmission
                 PointsEarned = $pointsEarned
-                WHERE QuestionId = $questionId AND StudentId = $studentId"
+                WHERE QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return true;
