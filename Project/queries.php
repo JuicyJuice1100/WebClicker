@@ -38,7 +38,7 @@
             $query = "SELECT * FROM Question";
             $stmt = $db->prepare($query);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when listing " .

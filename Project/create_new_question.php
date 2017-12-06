@@ -26,8 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$keywords  = $_POST['keywords'] . " " . $subject . " " . $sectionNumber;
 	
-    
-    ob_start();
+
 ?>
 <!doctype html>
 
@@ -67,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     <div id="content">
 		<div id="container">
-			 <div class="question_in_review">
+			<?php	ob_start();	 ?>
+			 <div>
 				<h1>
 					Q<?php echo $questionId; ?> - Section 
 					<?php echo $sectionNumber;?>			
@@ -79,10 +79,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						<input type="text" name="answer"/>
 					</div>
 				</form>
+			<div id="yourResults"></div>
+			<div id="correctAnswer"></div> 
+            <div id="classResults"></div>
+</div> 
+<?php 
+    $questionStatement =  ob_get_contents();
+    ob_end_flush();
+?>     
 				<div class="centered">
 					<input type="button" name="submit" value="Submit Answer"/>
 				</div>        
-			</div>            
+			
+			          
 		</div>            
     </div> 
 </body>
@@ -95,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
    <div id="content">
      <div id="container">
-		 <div class="question_in_review">
+	<?php	ob_start();	 ?>
+		 <div>
 			<h1>
 				Q<?php echo $questionId; ?> - Section 
 				<?php echo $sectionNumber;?>
@@ -111,10 +121,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<input type="radio" name="truefalse" value="false"> False
 				</div>
 			</form>
-			</div>
+			<div id="yourResults"></div>
+			<div id="correctAnswer"></div> 
+            <div id="classResults"></div>
+</div>
+<?php 
+    $questionStatement =  ob_get_contents();
+    ob_end_flush();
+?>  
 				<div class="centered">
 					<input type="button" name="submit" value="Submit Answer"/>
-				</div>        
+				</div> 
+
+			
+     
     </div>            
     </div>            
 </body>
@@ -127,7 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div id="content">
      <div id="container">
-     <div class="question_in_review">
+<?php	ob_start();	 ?>
+     <div>
             <h1>
 				Q<?php echo $questionId; ?> - Section 
 				<?php echo $sectionNumber;?>  			
@@ -152,10 +173,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
                 </div>
             </form>
-	</div>
+			<div id="yourResults"></div>
+			<div id="correctAnswer"></div> 
+            <div id="classResults"></div>
+<?php 
+    $questionStatement =  ob_get_contents();
+    ob_end_flush();
+?> 
+	</div>  
             <div class="centered">
                 <input type="button" name="submit" value="Submit Answer"/>
-            </div>        
+            </div> 
+
+        
     </div>            
     </div>            
 </body>
@@ -167,7 +197,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <div id="content">
      <div id="container">
-     <div class="question_in_review">
+<?php	ob_start();	 ?>
+     <div>
             <h1>
 				Q<?php echo $questionId; ?> - Section 
 				<?php echo $sectionNumber;?>  			
@@ -200,9 +231,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				</div>
             </form>
         </div>
+			<div id="yourResults"></div>
+			<div id="correctAnswer"></div> 
+            <div id="classResults"></div>
+<?php 
+    $questionStatement =  ob_get_contents();
+    ob_end_flush();
+?>
             <div class="centered">
                 <input type="button" name="submit" value="Submit Answer"/>
-            </div>        
+            </div>  
+
+
+               
     </div>            
     </div>            
 </body>
@@ -210,13 +251,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <?php
+
 	break;
 	}
        
-    
-    $questionStatement =  ob_get_contents();
-    ob_end_flush();
-
   	 insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
     $topicDescription, $keywords, $sectionNumber, NULL, $numberOfCorrectAnswers,
     NULL, NULL, NULL, 0, $questionType);
