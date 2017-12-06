@@ -227,6 +227,19 @@
         }
     }
 
+    function editStudentPassword($username, $hashedPassword){
+        $query = "UPDATE Student
+                SET hashedPassword = $hashedPassword
+                PasswordChanges = PasswordChanges + 1
+                WHERE Username = $username";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e){
+        db_disconnect();
+        exit("Aborting: There was a database error when changing password");
+    }
+
     function getAllStudents(){
         global $db;
         try {
@@ -255,7 +268,7 @@
         }
     }
 
-    function getStudentByUsername($username){
+    function getStudentPasswordByUsername($username){
         global $db;
         try{
             $query = "SELECT HashedPassword FROM Student WHERE Username = $username";
@@ -327,6 +340,19 @@
         }
     }
 
+    function editInstructorPassword($username, $hashedPassword){
+        $query = "UPDATE Instructor
+                SET hashedPassword = $hashedPassword
+                PasswordChanges = PasswordChanges + 1
+                WHERE Username = $username";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e){
+        db_disconnect();
+        exit("Aborting: There was a database error when changing password");
+    }
+
     function getAllInstructor(){
         global $db;
         try {
@@ -355,7 +381,7 @@
         }
     }
 
-    function getInstructorByUsername($username){
+    function getInstructorPasswordByUsername($username){
         global $db;
         try{
             $query = "SELECT HashedPassword FROM Instructor WHERE Username = $username";
