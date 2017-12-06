@@ -2,7 +2,7 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-
+require_once 'open_close_question.php';
 
 		if (isset($_POST['submitEdit']))
 			{
@@ -10,10 +10,9 @@ require_once 'initialize.php';
 				$subSection     = $_POST['sub_section'];
 				$sectionNumber = doubleval($section.".".$subSection);
 				$keywords  = $_POST['keywords'] . " " . $_POST['subject'] . " " . $sectionNumber;
-				editQuestionById($_POST['questionId'], $_POST['question_description'], $_POST['point_value'], 
+				editQuestionByIdShort($_POST['questionId'], $_POST['question_description'], $_POST['point_value'], 
 				$keywords, $sectionNumber);
 			}
-
 ?>
 
 <!doctype html>
@@ -75,13 +74,15 @@ require_once 'initialize.php';
 				</div>
 				
 				<div class="centered">
-					<form class="inlineBlock" action="">
-						<input type="submit" value="Activate" />
-						
-					</form>
+					<form class="inlineBlock" method="post">
+						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?> " />
+						<input type="submit" name="activate" value="Activate" />
+					</form> 
 					
-					<button type="button" onclick="deactivateQuestion(1)">
-					 Deactivate</button>
+					<form class="inlineBlock" method="post">
+						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?> " />
+						<input type="submit" name="deactivate" value="Deactivate" />
+					</form> 
 					 
 					<form class="inlineBlock" method="post">
 						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?>  " />
@@ -98,6 +99,16 @@ require_once 'initialize.php';
 					if(isset($_POST['delete'])){
 						deleteQuestionById($_POST['questionId']); 
 						echo "<script> navigateToQuestions(); </script>";
+					} 
+					if(isset($_POST['activate'])){
+						echo "activated";
+						openQuestion($_POST['questionId']); 
+						//echo "<script> navigateToQuestions(); </script>";
+					} 
+					if(isset($_POST['deactivate'])){
+						echo "deactivated";
+						closeQuestion($_POST['questionId']); 
+						//echo "<script> navigateToQuestions(); </script>";
 					} 
 					?>	 		
 	</div>    		

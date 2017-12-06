@@ -73,7 +73,7 @@
                 "average.");
         }
     }
-    function editQuestionById($id, $questionStatement, $numberOfPoints, 
+    function editQuestionByIdShort($id, $questionStatement, $numberOfPoints, 
     $keyword, $sectionNumber){
         global $db;
         try {
@@ -94,6 +94,47 @@
                 WHERE QuestionId = $id";
             $stmt = $db->prepare($query);
             $stmt->execute([$questionStatement, $numberOfPoints, $keyword, $sectionNumber]);
+            return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when editing " .
+                "question.");
+        }
+    }
+	function editQuestionById($id, $questionStatement, $correctAnswer, $numberOfPoints, 
+    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+    $averagePoints, $startTime, $endTime, $questionStatus, $questionType){
+        global $db;
+		
+		if($questionStatus == 0){
+			$sTime = "?";
+			$eTime = "FROM_UNIXTIME(?)";
+		}
+		else if($questionStatus == 2){
+			$sTime = "FROM_UNIXTIME(?)";
+			$eTime = "?";
+		}
+		
+        try {
+            $query = "UPDATE Question
+                SET QuestionStatement = ?
+                ,CorrectAnswer = ?
+                ,NumberOfPoints = ?
+                ,TopicDescription = ?
+                ,Keyword = ?
+                ,SectionNumber = ?
+                ,PhpGraderCode = ?
+                ,NumberOfCorrectAnswers = ?
+                ,AveragePoints = ?
+                ,StartTime = $sTime
+                ,EndTime = $eTime
+                ,QuestionStatus = ?
+                ,QuestionType = ?
+                WHERE QuestionId = $id";
+            $stmt = $db->prepare($query);			
+            $stmt->execute([$questionStatement, $correctAnswer, $numberOfPoints, 
+			$topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+			$averagePoints, $startTime, $endTime, $questionStatus, $questionType]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
