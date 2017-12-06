@@ -1,0 +1,385 @@
+/* Site Colors:
+Titan Gold: #ffcc00;
+Black: #000000;
+*/
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+   background:  linear-gradient(to right, white, #ffffe6,  #ffffcc); 
+}
+
+/* ************** header ********************** */
+
+header {
+  background-color: #ffcc00;
+  background: linear-gradient(to right, white, #ffcc00);
+  display: flex;
+  flex-direction: row;
+  height: 82px;
+  justify-content: space-between;
+}
+.header_user_type{
+	position: absolute;
+	left: 260px;
+	top: 27px;
+	font-size: 24px;
+	font-weight: bold;
+	font-style: italic;
+	font-variant: small-caps;
+}
+/* ********************** footer ********************** */
+
+footer {
+  background-color: #000000;
+  color: #ffcc00;
+  position: fixed;
+    left: 0;
+    bottom: 0;
+	width: 100%;
+}
+
+footer #copyright {
+	position:relative;
+	right: 90px;
+    height: 58px;        /* this is the desired height of the header */
+    font-size: 9.7px;   /* note that font-size * line-height = 58px which ... */
+    line-height: 6;      /* ... equals the height above, and together with ... */
+    text-align: center;  /* ... this line centers the text vertically          */
+}
+
+.validated {
+  float: left;
+  height: 58px;
+
+}
+
+.validated {
+  display: flex;
+  align-items: center;
+}
+
+.validated img {
+  height: 35px;
+  margin-left: 10px;
+}
+
+.validated img.html5 {
+  height: 45px;
+}
+/* ********************** nav ********************** */
+nav {
+  width:100%;
+}
+
+nav a:hover {
+	color: white;
+}
+
+nav ul {
+	height: 82px;
+    list-style-type: none;
+}
+
+nav li {
+    float: right;
+}
+
+nav li a {	
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+.selected > a {
+  border-bottom: solid 2px black;
+}
+
+/*************************** content ************************************/
+
+#content {
+  position: relative;
+  flex-grow: 1;
+  overflow: auto;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 10px;
+  padding-bottom: 85px;
+  
+}
+#container{
+	max-width: 800px;
+	margin: 0 auto;
+}
+#content p {
+  font-size: 16px;
+  line-height: normal;
+}
+
+#content li {
+  padding: 5px;
+}
+
+#content h1 {
+   margin-top: 0px;
+   padding:10px;
+   font-size: 24px;
+}
+ 
+#content div {
+  margin-bottom: 1em;
+}
+
+#content div#pwdconstraints {
+  font-size: 70%;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+div#pwdconstraints ol {
+  margin: 0px;
+}
+
+#content div#pwdconstraints p {
+  font-size: 100%;
+}
+
+
+/* ********************** tab content ********************** */
+div.tab {
+	width: 600px;
+	margin: 0 auto;
+}
+
+div.tab button {
+    cursor: pointer;
+}
+
+div.tab button.active {
+	border: 3px solid black;
+}
+
+.tabcontent {
+    display: none;
+}
+
+/* ********************** search bar ********************** */
+
+.searchBar{
+	background: rgba(255, 255, 255, 0.9);
+	padding: 30px;
+	margin: 30px auto;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+	width: 680px;
+	box-sizing: border-box;
+}
+.searchBar input[type="submit"]{
+	float: right;	
+	width: 200px;
+	margin-top:0;
+}
+.searchBar input[type="search"]{
+	height: 53px;
+	width: 390px;
+	font-size: 24px;
+}
+
+.tags{
+	margin: 20px 0;
+}
+.searchBar .tags div{
+	margin-top: 10px;
+}
+
+/* ********************** box card styling ********************** */
+
+.box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  margin: 30px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+  width: 600px;
+ 
+}
+.formTitle{
+    font-weight: 600;
+    font-size: 32px;
+	font-variant: small-caps;
+	text-align: center;
+}
+.pageTitle{
+    font-weight: 600;
+    font-size: 24px;
+	font-variant: small-caps;
+	text-align: center;
+	margin: 20px;
+}
+.box .textInput label {
+	color: rgba(0, 0, 0, 0.9);
+	display: inline-block;
+	font-size: 18px;
+	font-weight: 600;
+	width: 115px;
+	box-sizing: border-box;
+
+}
+.box .radioSelection label  {
+	display: inline-block;
+	font-size: 18px;
+	width: 160px;
+}
+.box .radioSelection .formLabel  {
+	display: inline-block;
+	width: 115px;
+}
+.box .radioSelection .radioOption  {
+	height: 20px;
+	width: 20px;
+	position:relative;
+	top:3px;
+	margin: 0 5px 10px 0;
+}
+.formLabel {
+	color: rgba(0, 0, 0, 0.9);
+	font-size: 18px;
+	font-weight: 600;
+	
+}
+
+
+/* ********************** buttton styling ********************** */
+
+input[type="password"], input[type="text"] {
+	display: inline-block;
+	width: 400px;
+	padding: 5px 10px;
+	background: none;
+	border: 2px solid #a0b3b0;
+	color: #000000;
+	transition: border-color 1s ease, box-shadow .25s ease;
+	box-sizing: border-box;
+}
+input:focus, textarea:focus {
+  outline: 0;
+  border-color: #ffcc00;
+}
+
+button, input[type=button], input[type="submit"] {
+  border: 0;
+  outline: none;
+  border-radius: 0;
+  padding: 15px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #ffcc00;
+  color: #000000;
+  margin-top: 10px;
+  cursor: pointer;
+}
+button:hover, input[type=submit]:hover, .box input[type=button]:hover {
+  background: #000000;
+  color: #ffffff;
+  transition: background-color .2s ease, box-shadow .25s ease;
+}
+/* form box styling */
+
+
+textarea {
+  border: 2px solid #a0b3b0;
+  resize: vertical;
+}
+
+
+input[type=password], input[type=text] {
+  font-size: 20px;
+}
+
+.delete_question{
+	background-color: red;
+	color: white;
+}
+.delete_question:hover{
+	background-color: white;
+	color: red;
+}
+
+.add_new_question{
+	background: rgba(255, 255, 255, 0.9);
+	padding: 30px;
+	margin: 30px auto;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+	width: 600px;
+}
+.add_new_question textarea{
+	height: 200px;
+	width: 100%;
+	font-size: 14px;
+}
+.add_new_question input[type="number"]{
+	width: 40px;
+}
+
+
+/* ********************** misc ********************** */
+
+
+a {
+  color: #000000;
+  text-decoration: none
+}
+
+
+.bold {
+  font-weight: bold;
+}
+
+ /* questions */
+
+.centered {
+  text-align: center;
+}
+
+.floatRight{
+	float: right;
+}
+.inlineBlock{
+	display: inline-block;
+}
+.smallContainer{
+	width: 660px;
+	margin: 0 auto;
+}
+
+.question_in_review {	  
+	background: rgba(255, 255, 255, 0.9);
+	padding: 20px;
+	margin: 30px auto;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
+	width: 680px;
+	box-sizing: border-box;
+ }
+
+.question_in_review button {
+	text-align:center; 
+}
+
+.textInput .readonly {
+	background-color: #e7e5e4;
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <title>UWO WebCLICKER - Instructor</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" media="all" href="dev.css" />
+    </head>
+<body>
+ <header>
+        <a href="questions_instructor.html">
+            <img id="logo" src="./images/logo.png"
+                   width="250" alt="UWO WebCLICKER logo" />
+        </a>
+        
+        <div class="header_user_type">Instructor</div>
+        
+        <nav>
+            <ul>
+                <li><a href="sign_in.html">Log out</a></li>
+                <li><a href="change_password_instructor.html">Edit Account</a></li>
+                <li class="selected"><a href="add_new_question_instructor.html">Add New Question</a></li>
+                <li><a href="results_instructor.html">Results</a></li>
+                <li><a href="questions_instructor.html">Questions</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<pre>Array
+(
+    [question_description] => Radio Test
+    [section] => 1
+    [sub_section] => 1
+    [subject] => HTML
+    [point_value] => 2
+    [keywords] => a
+    [question_type] => 1
+    [num_of_answers_radio] => 4
+    [radio_question1] => a1
+    [radio_question2] => b2
+    [radio_question3] => c3
+    [answer_radio] => 3
+    [radio_question4] => d4
+    [num_of_answers_checkbox] => 4
+    [answer_text] => 
+    [submit] => Add New Question
+)
+</pre>
+<div id="content">
+  <div id="container">
+    <div class="question_in_review">
+      <h1>
+	      Q1 - Section 
+			  1.1  			
+		  </h1>     
+      <form action="grade.php" method="post">                   
+        <div class="bold">Radio(Select one answer)</div>
+			  <div>Radio Test</div>        
+        <div>
+        <input type="radio" name="1" value="1">a1<br><input type="radio" name="2" value="2">b2<br><input type="radio" name="3" value="3">c3<br><input type="radio" name="4" value="4">d4<br>                  
+        </div>
+        <input type="hidden" name="questionId" value="1">				 
+
+        <div class="centered">
+          <input type = "submit" value="Submit"/> 
+        </div>   
+      </form>
+	  </div>        
+  </div>            
+</div>            
+</body>
+</html>        
+
+
