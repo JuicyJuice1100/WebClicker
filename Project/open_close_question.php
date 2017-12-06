@@ -18,8 +18,8 @@
 	  $endTime = $question['EndTime'];
 	  $questionStatus = $question['QuestionStatus'];
 	  $questionType = $question['QuestionType'];
-
-  if($questionStatus !== 2){
+	  
+  if($questionStatus != 2){
     $questionStatus = 2;
     editQuestionById($questionId, $questionStatement, $correctAnswer, 
       $numberOfPoints, $topicDescription, $keyword, $sectionNumber, 
@@ -43,7 +43,8 @@ function closeQuestion($questionId){
   $endTime = date_timestamp_get($date);
   $questionStatus = $question['QuestionStatus'];
   $questionType = $question['QuestionType']; 
-  if($questionStatus !== 0){
+
+  if($questionStatus == 2){
     $questionStatus = 0;
     /*$query_result = getAllSubmissionsByQuestion(); 
     $averagePoints = 0;

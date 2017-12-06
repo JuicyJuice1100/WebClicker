@@ -101,14 +101,10 @@ require_once 'open_close_question.php';
 						echo "<script> navigateToQuestions(); </script>";
 					} 
 					if(isset($_POST['activate'])){
-						echo "activated";
 						openQuestion($_POST['questionId']); 
-						//echo "<script> navigateToQuestions(); </script>";
 					} 
-					if(isset($_POST['deactivate'])){
-						echo "deactivated";
+					if(isset($_POST['deactivate'])){			
 						closeQuestion($_POST['questionId']); 
-						//echo "<script> navigateToQuestions(); </script>";
 					} 
 					?>	 		
 	</div>    		
