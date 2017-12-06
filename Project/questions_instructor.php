@@ -13,7 +13,7 @@ require_once 'initialize.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" media="all" href="dev.css" />
 </head>
-
+	<script src="./web_clicker.js"></script>
 <body>
     <header>
 		<a href="questions_instructor.html">
@@ -28,7 +28,6 @@ require_once 'initialize.php';
 				<li><a href="sign_in.html">Log out</a></li>
 				<li><a href="change_password_instructor.html">Edit Account</a></li>
 				<li><a href="add_new_question_instructor.html">Add New Question</a></li>
-				<li><a href="results_instructor.html">Results</a></li>
 				<li class="selected"><a href="questions_instructor.php">Questions</a></li>
 			</ul>
 		</nav>
@@ -72,15 +71,23 @@ require_once 'initialize.php';
 					<button type="button" onclick="deactivateQuestion(1)">
 					 Deactivate</button>
 					 
-					<button class="delete_question" type="button" onclick="deleteQuestion(2)">
-					Delete</button>
+					<form class="inlineBlock" method="post">
+						<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?>  " />
+						<input id="delete_question" name="delete" type="submit" value="Delete" />
+					</form>
+					
 				</div>
 		</div>   
 		 <?php
 			$i++;
 	}
 	?>	
-			 		
+		<?php 
+					if(isset($_POST['delete'])){
+						deleteQuestionById($_POST['questionId']); 
+						echo "<script> navigateToQuestions(); </script>";
+					} 
+					?>	 		
 	</div>    		
 </div>    		
 

@@ -51,8 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <li><a href="sign_in.html">Log out</a></li>
                 <li><a href="change_password_instructor.html">Edit Account</a></li>
                 <li class="selected"><a href="add_new_question_instructor.html">Add New Question</a></li>
-                <li><a href="results_instructor.html">Results</a></li>
-                <li><a href="questions_instructor.html">Questions</a></li>
+                <li><a href="questions_instructor.php">Questions</a></li>
             </ul>
         </nav>
     </header>
@@ -66,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     <div id="content">
 		<div id="container">
+		 <div class="question_in_review">
+		 <h3>Here is a preview of your question as it will appear to your students: </h3>
 			<?php	ob_start();	 ?>
 			 <div>
 				<h1>
@@ -82,11 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div id="yourResults"></div>
 			<div id="correctAnswer"></div> 
             <div id="classResults"></div>
-</div> 
+		</div> 
 <?php 
     $questionStatement =  ob_get_contents();
     ob_end_flush();
-?>     
+?>    
+</div> 
 				<div class="centered">
 					<input type="button" name="submit" value="Submit Answer"/>
 				</div>        
@@ -104,6 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
    <div id="content">
      <div id="container">
+	 <div class="question_in_review">
+	 <h3>Here is a preview of your question as it will appear to your students: </h3>
 	<?php	ob_start();	 ?>
 		 <div>
 			<h1>
@@ -124,11 +128,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div id="yourResults"></div>
 			<div id="correctAnswer"></div> 
             <div id="classResults"></div>
-</div>
+		</div>
 <?php 
     $questionStatement =  ob_get_contents();
     ob_end_flush();
 ?>  
+</div>
 				<div class="centered">
 					<input type="button" name="submit" value="Submit Answer"/>
 				</div> 
@@ -147,6 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <div id="content">
      <div id="container">
+	 <div class="question_in_review">
+	 <h3>Here is a preview of your question as it will appear to your students: </h3>
 <?php	ob_start();	 ?>
      <div>
             <h1>
@@ -176,10 +183,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div id="yourResults"></div>
 			<div id="correctAnswer"></div> 
             <div id="classResults"></div>
+			</div>
 <?php 
     $questionStatement =  ob_get_contents();
     ob_end_flush();
 ?> 
+
 	</div>  
             <div class="centered">
                 <input type="button" name="submit" value="Submit Answer"/>
@@ -197,6 +206,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <div id="content">
      <div id="container">
+	  <div class="question_in_review">
+	  <h3>Here is a preview of your question as it will appear to your students: </h3>
 <?php	ob_start();	 ?>
      <div>
             <h1>
@@ -230,14 +241,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
 				</div>
             </form>
-        </div>
+        
 			<div id="yourResults"></div>
 			<div id="correctAnswer"></div> 
             <div id="classResults"></div>
+			</div>
 <?php 
     $questionStatement =  ob_get_contents();
     ob_end_flush();
 ?>
+</div>
             <div class="centered">
                 <input type="button" name="submit" value="Submit Answer"/>
             </div>  

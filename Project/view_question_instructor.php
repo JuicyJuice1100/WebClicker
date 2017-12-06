@@ -16,7 +16,7 @@ $question = getQuestionById($_POST['questionId']);
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" media="all" href="dev.css" />
 	</head>
-
+ <script src="./web_clicker.js"></script>
 <body>
     <header>
 		<a href="questions_instructor.html">
@@ -31,8 +31,7 @@ $question = getQuestionById($_POST['questionId']);
 				<li><a href="sign_in.html">Log out</a></li>
 				<li><a href="change_password_instructor.html">Edit Account</a></li>
 				<li><a href="add_new_question_instructor.html">Add New Question</a></li>
-				<li class="selected"><a href="results_instructor.html">Results</a></li>
-				<li><a href="questions_instructor.html">Questions</a></li>
+				<li><a href="questions_instructor.php">Questions</a></li>
 			</ul>
 		</nav>
     </header>
@@ -47,8 +46,16 @@ $question = getQuestionById($_POST['questionId']);
 						<input type="hidden" name="questionId" value="<?php echo $question['QuestionId'];?>  " />
 						<input type="submit" value="Edit" />
 					</form> 	
-				<button class="delete_question" type="button" onclick="deleteQuestion(1)">
-				Delete</button>
+				<form class="inlineBlock" method="post">
+						<input type="hidden" name="questionId" value="<?php echo $question['QuestionId'];?>  " />
+						<input id="delete_question" name="delete" type="submit" value="Delete" />
+				</form>
+<?php
+				if(isset($_POST['delete'])){
+					deleteQuestionById($question['QuestionId']); 
+					echo "<script> navigateToQuestions(); </script>";
+				} 
+?>
 			</div>	
 			<p class="centered bold">Class Average: <?php echo $question['AveragePoints'] . "/" . $question['NumberOfPoints']; ?></p>
 			<p class="centered bold">Correct Answer: <?php echo $question['CorrectAnswer']; ?></p>

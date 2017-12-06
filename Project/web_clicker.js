@@ -13,10 +13,22 @@ function openTab(evt, userType) {
 }
 
 window.onload = function() {
-    document.getElementById("add_radio").style.display = "none";
-    document.getElementById("add_checkbox").style.display = "none";
-    document.getElementById("add_text").style.display = "none";
-    document.getElementById("add_tf").style.display = "none";
+	if(document.getElementById("add_radio")){
+		document.getElementById("add_radio").style.display = "none";
+	}
+	if(document.getElementById("add_checkbox")){
+		 document.getElementById("add_checkbox").style.display = "none";
+	}
+	if(document.getElementById("add_text")){
+		  document.getElementById("add_text").style.display = "none";
+	}
+	if(document.getElementById("add_tf")){
+		 document.getElementById("add_tf").style.display = "none";
+	}
+    
+   
+  
+   
 }
 
 function addRadio() {
@@ -67,7 +79,9 @@ function addCheckBoxOptions() {
 
     container.innerHTML += htmlElements;
 }
-
+function navigateToQuestions(){
+	window.location.href = "./questions_instructor.php";
+}
 
 function addText() {
     document.getElementById("add_radio").style.display = "none";

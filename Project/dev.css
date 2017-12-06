@@ -309,11 +309,11 @@ input[type=password], input[type=text] {
   font-size: 20px;
 }
 
-.delete_question{
+#delete_question{
 	background-color: red;
 	color: white;
 }
-.delete_question:hover{
+#delete_question:hover{
 	background-color: white;
 	color: red;
 }
