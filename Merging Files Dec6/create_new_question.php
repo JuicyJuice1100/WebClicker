@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<?php	ob_start();	 ?>
 			 <div>
 				<h1>
-					Q<?php echo $questionId; ?> - Section 
+					<?php echo $questionId; ?> - Section 
 					<?php echo $sectionNumber;?>			
 				</h1>               
 				<form action="grade.php" method="post">                    
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<input type="radio" name="truefalse" value="false"> False
 				</div>
 				<?php
-				 echo '<input type="hidden" name="questionId" value="'.$questionId.'">';
+				 echo '<input type="hidden" name="questionId" value="'.$questionId.'>';
 				 ?>
 					<div class="centered">
             <input id = "submitButton" type = "submit" value="Submit"/>
@@ -262,62 +262,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<div id="yourResults"></div>
 			<div id="correctAnswer"></div> 
             <div id="classResults"></div>
+            
 <?php 
     $questionStatement =  ob_get_contents();
     ob_end_flush();
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script> 
-
-
-//STILL BROKEN//////////////////////////////////////////////////////////////
-window.onload = function () { 
-  document.getElementById("submitButton").disabled = true;
-    }  
- 
-//document.getElementById("submitButton").disabled = true;   
-   // var attribute = document.createAttribute("disabled");
-   // var button = document.getElementById("submitButton");
-   // button.setAttributeNode(attribute); 
-}
-
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               
+             
     </div>            
-    </div>            
+    </div>    
 </body>
 </html>    
 
@@ -326,8 +278,8 @@ window.onload = function () {
 
 	break;
 	}
-
-  	 insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
+    echo '<script> document.getElementById("submitButton").disabled = true;</script>';
+  	insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
     $topicDescription, $keywords, $sectionNumber, NULL, $numberOfCorrectAnswers,
     NULL, NULL, NULL, 0, $questionType);
 }
