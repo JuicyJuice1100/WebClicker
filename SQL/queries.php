@@ -78,6 +78,7 @@
                 "average.");
         }
     }
+
     function editQuestionByIdShort($id, $questionStatement, $numberOfPoints, 
     $keyword, $sectionNumber){
         global $db;
@@ -507,11 +508,27 @@
     function deleteSubmission($questionId, $studentId){
         global $db;
         try {
-            $query = "DELETE FROM Submittedsolutions 
+            $query = "DELETE FROM SubmittedSolutions 
                 WHERE QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when deleting " .
+                "submission stats.");
+        }
+    }
+
+    function getCalculatedAverageBy($id){
+        global $db;
+        try {
+            $query = "SELECT AVG(PointsEarned)
+                FROM SubmittedSolutions
+                WHERE QuestionId = $questionId";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when deleting " .
