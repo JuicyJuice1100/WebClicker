@@ -216,11 +216,16 @@ function getSubmissions(graph) {
     ajax.onreadystatechange = function (){
         if (ajax.readyState == 4) {
             var submissionsArray = JSON.parse(ajax.reponseText);
+            var submissions = submissionArray.map(function(submission){
+                return {"StudentSubmission" : score['StudentSubmission']}
+            });
             submissionsArray.foreach(function(submission){
                 graph.colors.push("#49a0d8");
             })
             graph.xAxisLabelArr = submissionArray;
         }
+        ajax.open("GET", "barGraph.php", true);
+        ajax.send(null);
     }
 }
 window.onload = function() {

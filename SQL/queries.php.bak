@@ -344,18 +344,19 @@
     }
 
     function editInstructorPassword($username, $hashedPassword){
-    global $db;
-        try {
-        $query = "UPDATE Instructor
-                SET hashedPassword = $hashedPassword
-                PasswordChanges = PasswordChanges + 1
-                WHERE Username = $username";
-        $stmt = $db->prepare($query);
-        $stmt->execute();
-        return true;
-    } catch (PDOException $e){
-        db_disconnect();
-        exit("Aborting: There was a database error when changing password");
+        try{
+            global $db;
+            $query = "UPDATE Instructor
+                    SET hashedPassword = $hashedPassword
+                    PasswordChanges = PasswordChanges + 1
+                    WHERE Username = $username";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when changing password");
+        }
     }
 
     function getAllInstructor(){
