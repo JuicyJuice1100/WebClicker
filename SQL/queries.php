@@ -150,14 +150,15 @@
     }
 
     // Please note this will only search for full words not partial words
-    function getQuestionsByKeyword($keyword){
+    function getQuestionsByKeyword($keyword, $points, $studentId){
         global $db;
         try {
             $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE %$keyword%";
+                INNER JOIN SubmittedSolutions ON Question.QuestionId = SubmittedSolutions.QuestionId
+                WHERE (Keyword LIKE '%$keyword%' OR NumberOfPoints = $points) AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when listing " .

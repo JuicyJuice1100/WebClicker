@@ -13,6 +13,7 @@
 // limitations under the License.
 
 
+
 function BarGraph(ctx) {
 
     // Private properties and methods
@@ -198,6 +199,9 @@ function BarGraph(ctx) {
     };
 }
 
+var ctx = createCanvas("graphDiv1");
+var graph = new BarGraph(ctx);
+
 function createCanvas(divName) {
     
     var div = document.getElementById(divName);
@@ -210,44 +214,32 @@ function createCanvas(divName) {
     return ctx;
 }
 
-function getSubmissions(graph) {
-    graph.colors = [];
+function getSubmissions() {
     var ajax = new XMLHttpRequest();
     ajax.onreadystatechange = function (){
         if (ajax.readyState == 4) {
             var submissionsArray = JSON.parse(ajax.reponseText);
-            var submissions = submissionArray.map(function(submission){
-                return {"StudentSubmission" : score['StudentSubmission']}
-            });
-            // var dup = [];
-            // var array = submissions.filter(function(el) {
-            //     // If it is not a duplicate, return true
-            //     if (dups.indexOf(el.ID) == -1) {
-            //       dups.push(el.ID);
-            //       return true;
-            //     }
-            //     return false; 
-            //   });
-            submissions = array;
-            submissionsArray.foreach(function(submission){
-                graph.colors.push("#49a0d8");
-            })
-            graph.colors = submissionArray;
-            graph.xAxisLabelArr = submissions;
+            console.log(submissionArray);
         }
-        ajax.open("GET", "barGraph.php", true);
+        ajax.open("GET", "BarGraph.php", true);
         ajax.send(null);
     }
+    graph.update([Math.random() * 30, Math.random() * 30, Math.random() * 30, Math.random() * 30]);
 }
+
 window.onload = function() {
-    var ctx = createCanvas("graphDiv1");
 
-    var graph = new BarGraph(ctx);
-
-    setInterval(getSubmissions(graph), 10000);
 
     graph.maxValue = 30;
     graph.margin = 2;
+    graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27"];
+    graph.xAxisLabelArr = ["North", "East", "West", "South"];
+    setInterval(getSubmissions(), 1000);
+
+    // setInterval(getSubmissions(graph), 10000);
+
+    // graph.maxValue = 30;
+    // graph.margin = 2;
     // graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27"];
     // graph.xAxisLabelArr = ["North", "East", "West", "South"];
 }
