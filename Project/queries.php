@@ -3,15 +3,16 @@
     *=============================== Question ====================================* 
     *******************************************************************************/
     function insertQuestion($id, $questionStatement, $correctAnswer, $numberOfPoints, 
-    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberofCorrectAnswers,
     $averagePoints, $startTime, $endTime, $questionStatus, $questionType) {
         global $db;
         try {
-            $query = "INSERT INTO Question VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?, ?, ?, ?)";
+            $query = "INSERT INTO Question 
+                VALUES (?, ?, ?, ?, ?, ?, ? ,? ,?, ?, ?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$id, $questionStatement, $correctAnswer, $numberOfPoints, 
             $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
-            $averagePoints, $startTime, $endTime, $questionStatus, $questionType]);			
+            $averagePoints, $startTime, $endTime, $questionStatus, $questionType]);
             return true;
         } catch (PDOException $e) {
             db_disconnect();
@@ -63,7 +64,7 @@
         try {
             $query = "SELECT AveragePoints 
                 FROM Question 
-                WHERE ID = $id";
+                WHERE QuestionId = $id";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -170,6 +171,34 @@
                 "question number.");
         }
     }
+    function getFirstActiveQuestion(){
+        global $db;
+        try{
+            $query = "SELECT * FROM Question WHERE QuestionStatus = 2 LIMIT 1";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when getting ".
+                "active question.");
+        }
+    }
+    function changeQuestionStatus($id, $status){
+        global $db;
+        try{
+            $query = "UPDATE Question
+                SET QuestionStatus = $status
+                WHERE QuestionId = $id";
+                $stmt = $db->prepare($query);
+                $stmt->execute();
+                return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when changing ".
+                "question status.");
+        }
+    }
     /******************************************************************************
     *================================ Student ====================================* 
     *******************************************************************************/
@@ -225,6 +254,21 @@
                 "student.");
         }
     }
+    function editStudentPassword($username, $hashedPassword){
+    global $db;
+        try {
+        $query = "UPDATE Student
+                SET hashedPassword = $hashedPassword
+                PasswordChanges = PasswordChanges + 1
+                WHERE Username = $username";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e){
+        db_disconnect();
+        exit("Aborting: There was a database error when changing password");
+    }
+    }
     function getAllStudents(){
         global $db;
         try {
@@ -251,7 +295,7 @@
                 "student.");
         }
     }
-    function getStudentByUsername($username){
+    function getStudentPasswordByUsername($username){
         global $db;
         try{
             $query = "SELECT HashedPassword FROM Student WHERE Username = $username";
@@ -260,7 +304,8 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
-            exit("Aborting: Username does not exist");
+            exit("Aborting: There was a database error when listing ".
+                "student.");
         }
     }
     /******************************************************************************
@@ -318,6 +363,21 @@
                 "student.");
         }
     }
+    function editInstructorPassword($username, $hashedPassword){
+    global $db;
+        try {
+        $query = "UPDATE Instructor
+                SET hashedPassword = $hashedPassword
+                PasswordChanges = PasswordChanges + 1
+                WHERE Username = $username";
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+        return true;
+    } catch (PDOException $e){
+        db_disconnect();
+        exit("Aborting: There was a database error when changing password");
+    }
+ }
     function getAllInstructor(){
         global $db;
         try {
@@ -344,7 +404,7 @@
                 "student.");
         }
     }
-    function getInstructorByUsername($username){
+    function getInstructorPasswordByUsername($username){
         global $db;
         try{
             $query = "SELECT HashedPassword FROM Instructor WHERE Username = $username";
@@ -362,40 +422,36 @@
     function getSubmission($questionId, $studentId){
         global $db;
         try {
-            $query = "SELECT StudentSubmission
-                    ,PointsEarned
-                    ,NumberOfPoints
-                    ,StudentId
-                    FROM SubmittedSolutions 
-                    INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId;
-                    WHERE QuestionId = $questionId AND StudentId = $studentId";
+            $query = "SELECT * FROM SubmittedSolutions 
+                    INNER JOIN Question ON SubmittedSolutions.QuestionId = Question.QuestionId
+                    WHERE SubmittedSolutions.QuestionId = $questionId AND StudentId = $studentId";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
-            exit("Aborting: There was a database error when listing " .
+            exit("Aborting: There was an database error when listing " .
                 "submission stats.");
         }
     }
-    function getAllSubmissions(){
+    function getQuestionSubmissions($questionId){
         global $db;
-        try {
-            $query = "SELECT * FROM SubmittedSolutions";
+        try{
+            $query = "SELECT * FROM SubmittedSolutions
+                    WHERE QuestionId = $questionId";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
-            exit("Aborting: There was a database error when listing " .
-                "submission stats.");
+            exit("Aborting: There was an error when getting all solutions");
         }
     }
     function insertSubmission($questionId, $studentId, $studentSubmission, $pointsEarned){
         global $db;
         try {
-            $query = "INSERT INTO SubmittedSolutions
-                VALUES (?, ?, ?, ?);";
+            $query = "INSERT INTO SubmittedSolutions (QuestionId, StudentId, StudentSubmission, PointsEarned)
+                VALUES (?, ?, ?, ?)";
             $stmt = $db->prepare($query);
             $stmt->execute([$questionId, $studentId, $studentSubmission, $pointsEarned]);
             return true;
@@ -429,6 +485,21 @@
             $stmt = $db->prepare($query);
             $stmt->execute();
             return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when deleting " .
+                "submission stats.");
+        }
+    }
+    function getCalculatedAverageBy($id){
+        global $db;
+        try {
+            $query = "SELECT AVG(PointsEarned)
+                FROM SubmittedSolutions
+                WHERE QuestionId = $id";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when deleting " .
