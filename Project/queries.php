@@ -378,6 +378,19 @@
                 "submission stats.");
         }
     }
+    function getAllSubmissions(){
+        global $db;
+        try {
+            $query = "SELECT * FROM SubmittedSolutions";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when listing " .
+                "submission stats.");
+        }
+    }
     function insertSubmission($questionId, $studentId, $studentSubmission, $pointsEarned){
         global $db;
         try {

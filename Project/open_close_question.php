@@ -46,14 +46,17 @@ function closeQuestion($questionId){
 
   if($questionStatus == 2){
     $questionStatus = 0;
-    /*$query_result = getAllSubmissionsByQuestion(); 
+    $query_result = getAllSubmissions(); 
     $averagePoints = 0;
-    $count = 0;
-    foreach($query_result as $submission){
-      $averagePoints += $submission['PointsEarned'];
-      $count++;
+
+    $count =  count($query_result);
+    for($i = 0; $i<$count; $i++){
+      $averagePoints += $query_result[$i]['AveragePoints'];    
     }
-    $averagePoints = (double)$averagePoints / (double)$count;*/
+    echo  $count. "    ,    " .$averagePoints;
+    $averagePoints = (double)$averagePoints / (double)$count;
+    
+    
     editQuestionById($questionId, $questionStatement, $correctAnswer, 
       $numberOfPoints, $topicDescription, $keyword, $sectionNumber, 
       $phpGraderCode, $numberOfCorrectAnswers, $averagePoints, $startTime,
