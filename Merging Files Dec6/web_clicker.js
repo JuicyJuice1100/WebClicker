@@ -110,8 +110,15 @@ function displayQuestion(x) {
 }
 
 function redirect() {
-    var url = "grad.php";
-    window.location(url);
+    var url = "http://webdev.cs.uwosh.edu/students/seymej72/TeamProject/grade.php";
+    window.location = url;
+}
+
+function disableSubmit() {
+    var attribute = document.createAttribute("disabled");
+    var button = document.getElementById("submitButton");
+    button.setAttributeNode(attribute);
+    
 }
 
 function deactivateQuestion(x) {

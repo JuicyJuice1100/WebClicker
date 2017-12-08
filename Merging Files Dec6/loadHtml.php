@@ -12,27 +12,27 @@ function loadHtmlFile($questionId, $studentId){
 
   <html lang="en">
       <head>
-          <title>UWO WebCLICKER - Instructor</title>
+          <title>UWO WebCLICKER - Student</title>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <link rel="stylesheet" media="all" href="dev.css" />
       </head>
   <body>
    <header>
-          <a href="questions_instructor.html">
+          <a href="quiz_student.html">
               <img id="logo" src="./images/logo.png"
                      width="250" alt="UWO WebCLICKER logo" />
           </a>
           
-          <div class="header_user_type">Instructor</div>
+          <div class="header_user_type">Student</div>
           
           <nav>
               <ul>
                   <li><a href="sign_in.html">Log out</a></li>
                   <li><a href="change_password_student.html">Edit Account</a></li>
-                  <li><a href="review_student.html">Add New Question</a></li>
+                  <li><a href="review_student.html">Review</a></li>
                   
-                  <li class="selected"><a href="quiz_student.html">Questions</a></li>
+                  <li class="selected"><a href="quiz_student.html">Quiz</a></li>
               </ul>
           </nav>
       </header>
@@ -41,28 +41,21 @@ function loadHtmlFile($questionId, $studentId){
     <div id="container">
       <div class="question_in_review">
         <div id="submittedAnswer">
-  <!--------------------------------------------------------------------------->
-  <!--------------Display Answer Result above question------------------------->
-  <?php
-    $submission = getSubmission($questionId, $studentId);
-    $studentSubmission = $submission['StudentSubmission'];
-    if(isset($studentSubmission)){
-    
-      /*Add here:
-      Grab Submit button for question which has already been answered and remove
-      so they can't post again*/
-
-      $pointsEarned = $submission['PointsEarned'];
-      $question = getQuestionById($questionId);
-      $correctAnswer = $question['CorrectAnswer'];
-      $numberOfPoints = $question['NumberOfPoints'];
-      $splashMsg = "You submitted: $studentSubmission. The correct ".
-      "answer was $correctAnswer. You earned $pointsEarned point(s) out of a ".
-      "total of $numberOfPoints point(s).";
-      
-     echo $splashMsg."</div>"; //Displays Answer result in submitted Answer div
-   }
-   echo $questionStatement; ?>
+<!----------------Insert Question HTML from Database--------------------------->
+          <?php
+            $submission = getSubmission($questionId, $studentId);
+            $studentSubmission = $submission['StudentSubmission'];
+            if(isset($studentSubmission)){
+              $pointsEarned = $submission['PointsEarned'];
+              $question = getQuestionById($questionId);
+              $correctAnswer = $question['CorrectAnswer'];
+              $numberOfPoints = $question['NumberOfPoints'];
+              $splashMsg = "You submitted: $studentSubmission. The correct ".
+              "answer was $correctAnswer. You earned $pointsEarned point(s) ".
+              "out of a total of $numberOfPoints point(s).";
+             echo $splashMsg."</div>"; 
+           }
+           echo $questionStatement; ?>
   <!--------------------------------------------------------------------------->
 	      </div>      
       </div>            
@@ -71,11 +64,13 @@ function loadHtmlFile($questionId, $studentId){
   </body>
   </html>        
   <?php
-
     return 0;
 }
   else{
-    echo "There is no active question!";
+    
+    
+    header('Location:quiz_student.html');
+   
 }
 }
 

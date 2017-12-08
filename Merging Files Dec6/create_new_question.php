@@ -36,10 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" media="all" href="dev.css" />
+        
     </head>
 <body>
  <header>
-        <a href="questions_instructor.html">
+        <a href="quiz_student.html">
             <img id="logo" src="./images/logo.png"
                    width="250" alt="UWO WebCLICKER logo" />
         </a>
@@ -47,13 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="header_user_type">Instructor</div>
         
         <nav>
-            <ul>
-                <li><a href="sign_in.html">Log out</a></li>
-                <li><a href="change_password_instructor.html">Edit Account</a></li>
-                <li class="selected"><a href="add_new_question_instructor.html">Add New Question</a></li>
-                
-                <li><a href="questions_instructor.php">Questions</a></li>
-            </ul>
+          <ul>
+            <li><a href="sign_in.html">Log out</a></li>
+            <li><a href="change_password_instructor.html">Edit Account</a></li>
+            <li class="selected"><a href="add_new_question_instructor.html">
+            Add New Question</a></li>
+            <li><a href="results_instructor.html">Results</a></li>
+            <li><a href="questions_instructor.html">Questions</a></li>
+          </ul>
+
         </nav>
     </header>
 
@@ -83,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				 echo '<input type="hidden" name="questionId" value="'.$questionId.'">';
 				 ?>
 					<div class="centered">
-            <input type = "submit" value="Submit"/> 
+            <input id = "submitButton" type = "submit" value="Submit"/> 
           </div> 
 				</form>
 			<div id="yourResults"></div>
@@ -130,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				 echo '<input type="hidden" name="questionId" value="'.$questionId.'">';
 				 ?>
 					<div class="centered">
-            <input type = "submit" value="Submit"/> 
+            <input id = "submitButton" type = "submit" value="Submit"/>
           </div> 
 				</form>
             
@@ -181,7 +184,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             for ($i = 1; $i < $numAnswers; $i++) {
                 $question = $_POST['radio_question' . $i];
                 echo '<input type="radio" name="answer" value="'.$i.'">' . $question .
-                '<br>';
+                '<br />';
             }
             
 ?>                
@@ -191,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				 echo '<input type="hidden" name="questionId" value="'.$questionId.'">';
 				 ?>
 					<div class="centered">
-            <input type = "submit" value="Submit"/> 
+            <input id = "submitButton" type = "submit" value="Submit"/>
           </div> 
 				</form>
 			<div id="yourResults"></div>
@@ -242,9 +245,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             for ($i = 1; $i < $numAnswers; $i++) {
                 $question = $_POST['checkbox_question' . $i];
-                echo '<input type="checkbox" name="q1" value="true">' . $question . '<br>';
-            }
-            
+                echo '<input type="checkbox" name="c'.$i.'"value="'.$i.'">' .
+                $question . '<br />';
+            }            
 ?>                
                     
 				</div>
@@ -252,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				 echo '<input type="hidden" name="questionId" value="'.$questionId.'">';
 				 ?>
 					<div class="centered">
-            <input type = "submit" value="Submit"/> 
+            <input id ="submitButton" type = "submit" value="Submit"/>
           </div> 
 				</form>
         </div>
@@ -263,7 +266,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $questionStatement =  ob_get_contents();
     ob_end_flush();
 ?>
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script> 
+
+
+//STILL BROKEN//////////////////////////////////////////////////////////////
+window.onload = function () { 
+  document.getElementById("submitButton").disabled = true;
+    }  
+ 
+//document.getElementById("submitButton").disabled = true;   
+   // var attribute = document.createAttribute("disabled");
+   // var button = document.getElementById("submitButton");
+   // button.setAttributeNode(attribute); 
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                
@@ -277,11 +326,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	break;
 	}
-	
-	//DELETE THIS:
-	echo '<pre>';
-  print_r($_POST);
-  echo '</pre>';
 
   	 insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
     $topicDescription, $keywords, $sectionNumber, NULL, $numberOfCorrectAnswers,

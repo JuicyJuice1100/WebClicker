@@ -3,7 +3,7 @@ require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
 require_once 'loadHtml.php';
-//require_once 'updateFileDir.php';
+
 /*
     echo '<pre>';
     print_r($_POST);
@@ -35,10 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $questionStatus = $question['QuestionStatus'];
     $questionType = $question['QuestionType'];
 
-    $studentSubmission = $_POST["answer"]; 
+    
 
     switch ($questionType) {
       case 0: //True or False
+          $studentSubmission = $_POST["truefalse"]; 
           if($studentSubmission === $correctAnswer){
            $pointsEarned = $numberOfPoints;
           }
@@ -47,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
           break;
       case 1: //Radio Button
+          $studentSubmission = $_POST["answer"]; 
           if($studentSubmission === $correctAnswer){
             $pointsEarned = $numberOfPoints;
           }
@@ -56,21 +58,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           break;
       case 2: //Multiple Choice
           $studentSubmission = "";
-          $pointsEarned = $numberOfPoints;
-          $strlen = strlen($correctAnswer);
-          for( $i = 0; $i <= $strlen; $i++ ) {
-            $char = substr($correctAnswer, $i, 1);
-            if(!isset($_POST[$char])){
-              $pointsEarned = max($pointsEarned--, 1);
-            }
-            else{
-              $studentSubmission .= $char;
+          for($i = 1; $i < 10; $i++){
+            if(isset($_POST["c".$i])){
+              $studentSubmission .= $_POST["c".$i];
             }
           }
+          $pointsEarned = $numberOfPoints;
+          $strlen = strlen($correctAnswer);
+          for($i = 0; $i < $strlen; $i++ ) {
+            $char = substr($correctAnswer, $i, 1);
+            if(!isset($_POST["c".$char])){
+              $pointsEarned--;
+            }
+          }
+          if($pointsEarned < 1){
+            $pointsEarned = 1;
+          }
+          
           break;
       case 3: //Short Answer 
+      print_r($_POST);
+          $studentSubmission = $_POST["answer"]; 
+          
           $tempString = strtolower($studentSubmission);
           $tempString = trim($tempString);
+          
+          $correctAnswer = strtolower($correctAnswer);
+          $correctAnswer = trim($correctAnswer);
+          
           if($tempString === $correctAnswer){
             $pointsEarned = $numberOfPoints;
           }
