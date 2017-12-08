@@ -219,15 +219,15 @@ function getSubmissions(graph) {
             var submissions = submissionArray.map(function(submission){
                 return {"StudentSubmission" : score['StudentSubmission']}
             });
-            var dup = [];
-            var array = submissions.filter(function(el) {
-                // If it is not a duplicate, return true
-                if (dups.indexOf(el.ID) == -1) {
-                  dups.push(el.ID);
-                  return true;
-                }
-                return false; 
-              });
+            // var dup = [];
+            // var array = submissions.filter(function(el) {
+            //     // If it is not a duplicate, return true
+            //     if (dups.indexOf(el.ID) == -1) {
+            //       dups.push(el.ID);
+            //       return true;
+            //     }
+            //     return false; 
+            //   });
             submissions = array;
             submissionsArray.foreach(function(submission){
                 graph.colors.push("#49a0d8");

@@ -523,12 +523,12 @@
     function getCalculatedAverageBy($id){
         global $db;
         try {
-            $query = "SELECT AVG(PointsEarned)
+            $query = "SELECT AVG(PointsEarned)  
                 FROM SubmittedSolutions
-                WHERE QuestionId = $questionId";
+                WHERE QuestionId = $id";
             $stmt = $db->prepare($query);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when deleting " .
