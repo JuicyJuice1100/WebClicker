@@ -222,7 +222,8 @@ function getSubmissions(graph) {
             submissionsArray.foreach(function(submission){
                 graph.colors.push("#49a0d8");
             })
-            graph.xAxisLabelArr = submissionArray;
+            graph.colors = submissionArray;
+            graph.xAxisLabelArr = submissions;
         }
         ajax.open("GET", "barGraph.php", true);
         ajax.send(null);
@@ -233,7 +234,7 @@ window.onload = function() {
 
     var graph = new BarGraph(ctx);
 
-    setInterval(getSubmissions(graph), 1000);
+    setInterval(getSubmissions(graph), 10000);
 
     graph.maxValue = 30;
     graph.margin = 2;
