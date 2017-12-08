@@ -17,6 +17,7 @@ $question = getQuestionById($_POST['questionId']);
 		<link rel="stylesheet" media="all" href="dev.css" />
 	</head>
  <script src="./web_clicker.js"></script>
+ 
 <body>
     <header>
 		<a href="questions_instructor.html">
@@ -60,10 +61,7 @@ $question = getQuestionById($_POST['questionId']);
 			<p class="centered bold">Class Average: <?php echo $question['AveragePoints'] . "/" . $question['NumberOfPoints']; ?></p>
 			<p class="centered bold">Correct Answer: <?php echo $question['CorrectAnswer']; ?></p>
 			<p class="bold">Submitted Answers:</p>
-			<p>Option 1: jamesk32</p>
-			<p>Option 2: </p>
-			<p>Option 3: calvin12, dunkod78</p>
-			<p>Option 4: </p>			
+			<div id="graphDiv1"></div>		
 	</div>			
 	</div>    		
 </div>    		
@@ -85,6 +83,6 @@ $question = getQuestionById($_POST['questionId']);
   </footer>
   
   <script src="./web_clicker.js"></script>
-  
+  <script src="./BarGraph.js"></script>
   </body>
 </html>
