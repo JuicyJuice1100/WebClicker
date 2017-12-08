@@ -259,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                
     </div>            
     </div>            
-</body>
+a</body>
 </html>    
 
 
@@ -267,7 +267,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	break;
 	}
-       
+     echo '<script> document.getElementById("submitButton").disabled = true;</script>';
   	 insertQuestion($questionId, $questionStatement, $correctAnswer, $numberOfPoints, 
     $topicDescription, $keywords, $sectionNumber, NULL, $numberOfCorrectAnswers,
     NULL, NULL, NULL, 0, $questionType);
