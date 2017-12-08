@@ -1,3 +1,3 @@
 <?php 
-    echo json_encode(getSubmission($questionId, $studentId));
+    echo json_encode(getQuestionSubmissions($questionId));
 ?>

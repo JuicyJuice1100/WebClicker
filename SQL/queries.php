@@ -414,8 +414,22 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
-            exit("Aborting: There was a database error when listing " .
+            exit("Aborting: There was an database error when listing " .
                 "submission stats.");
+        }
+    }
+
+    function getQuestionSubmissions($questionId){
+        global $db;
+        try{
+            $query = "SELECT * FROM SubmittedSolutions
+                    WHERE QuestionId = $quesitonId";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was an error when getting all solutions");
         }
     }
 
