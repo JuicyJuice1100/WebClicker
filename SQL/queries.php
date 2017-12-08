@@ -78,29 +78,68 @@
                 "average.");
         }
     }
-
-    function editQuestionById($id, $questionStatement, $correctAnswer, $numberOfPoints, 
-    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
-    $averagePoints, $startTime, $endTime, $questionStatus, $questionType){
+    function editQuestionByIdShort($id, $questionStatement, $numberOfPoints, 
+    $keyword, $sectionNumber){
         global $db;
         try {
             $query = "UPDATE Question
-                SET QuestionStatement = $questionStatement
-                ,CorrectAnswer = $correctAnswer
-                ,NumberOfPoints = $numberOfPoints
-                ,TopicDescription = $topicDescription
-                ,Keyword = $keyword
-                ,SectionNumber = $sectionNumber
-                ,PhpGraderCode = $phpGraderCode
-                ,NumberOfCorrectAnswers = $numberOfCorrectAnswers
-                ,AveragePoints = $averagePoints
-                ,StartTime = $startTime
-                ,EndTime = $endTime
-                ,QuestionStatus = $questionStatus
-                ,QuestionType = $questionType
+                SET QuestionStatement = ?
+                ,CorrectAnswer = CorrectAnswer
+                ,NumberOfPoints = ?
+                ,TopicDescription = TopicDescription
+                ,Keyword = ?
+                ,SectionNumber = ?
+                ,PhpGraderCode = PhpGraderCode
+                ,NumberOfCorrectAnswers = NumberOfCorrectAnswers
+                ,AveragePoints = AveragePoints
+                ,StartTime = StartTime
+                ,EndTime = EndTime
+                ,QuestionStatus = QuestionStatus
+                ,QuestionType = QuestionType
                 WHERE QuestionId = $id";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$questionStatement, $numberOfPoints, $keyword, $sectionNumber]);
+            return true;
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when editing " .
+                "question.");
+        }
+    }
+	function editQuestionById($id, $questionStatement, $correctAnswer, $numberOfPoints, 
+    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+    $averagePoints, $startTime, $endTime, $questionStatus, $questionType){
+        global $db;
+		
+		if($questionStatus == 0){
+			$sTime = "?";
+			$eTime = "FROM_UNIXTIME(?)";
+		}
+		else if($questionStatus == 2){
+			$sTime = "FROM_UNIXTIME(?)";
+			$eTime = "?";
+		}
+		
+        try {
+            $query = "UPDATE Question
+                SET QuestionStatement = ?
+                ,CorrectAnswer = ?
+                ,NumberOfPoints = ?
+                ,TopicDescription = ?
+                ,Keyword = ?
+                ,SectionNumber = ?
+                ,PhpGraderCode = ?
+                ,NumberOfCorrectAnswers = ?
+                ,AveragePoints = ?
+                ,StartTime = $sTime
+                ,EndTime = $eTime
+                ,QuestionStatus = ?
+                ,QuestionType = ?
+                WHERE QuestionId = $id";
+            $stmt = $db->prepare($query);			
+            $stmt->execute([$questionStatement, $correctAnswer, $numberOfPoints, 
+			$topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
+			$averagePoints, $startTime, $endTime, $questionStatus, $questionType]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
