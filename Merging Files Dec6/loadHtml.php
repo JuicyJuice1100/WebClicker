@@ -2,8 +2,6 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-
-//In student: Onclick of show question// or on click go to this page?
 function loadHtmlFile($questionId, $studentId){
   if(isset($questionId)){
     $question = getQuestionById($questionId);
@@ -16,6 +14,7 @@ function loadHtmlFile($questionId, $studentId){
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <link rel="stylesheet" media="all" href="dev.css" />
+          <script src="splashMsg.js"></script>
       </head>
   <body>
    <header>
@@ -43,6 +42,7 @@ function loadHtmlFile($questionId, $studentId){
         <div id="submittedAnswer">
 <!----------------Insert Question HTML from Database--------------------------->
           <?php
+            echo $questionStatement; 
             $submission = getSubmission($questionId, $studentId);
             $studentSubmission = $submission['StudentSubmission'];
             if(isset($studentSubmission)){
@@ -50,13 +50,21 @@ function loadHtmlFile($questionId, $studentId){
               $question = getQuestionById($questionId);
               $correctAnswer = $question['CorrectAnswer'];
               $numberOfPoints = $question['NumberOfPoints'];
-              $splashMsg = "You submitted: $studentSubmission. The correct ".
-              "answer was $correctAnswer. You earned $pointsEarned point(s) ".
-              "out of a total of $numberOfPoints point(s).";
+              $questionStatus = $question['QuestionStatus'];
+              
+              if($questionStatus === 0 || $questionStatus === 3) {
+                $splashMsg = "You submitted: $studentSubmission. The correct ".
+                "answer was $correctAnswer. You earned $pointsEarned point(s) ".
+                "out of a total of $numberOfPoints point(s).";
+              }
+              else {
+                 $splashMsg = makeSplashMsg($studentSubmission, $correctAnswer,
+                       $pointsEarned, $numberOfPoints);
+              }
              echo $splashMsg."</div>"; 
            }
-           echo $questionStatement; ?>
-  <!--------------------------------------------------------------------------->
+    ?>
+<!----------------------------------------------------------------------------->
 	      </div>      
       </div>            
     </div> 
@@ -67,12 +75,34 @@ function loadHtmlFile($questionId, $studentId){
     return 0;
 }
   else{
-    
-    
-    header('Location:quiz_student.html');
-   
-}
+    header('Location:quiz_student.html');  
+  }
 }
 
-
+function makeSplashMsg($studentSubmission, $correctAnswer,
+                       $pointsEarned, $numberOfPoints){
+    
+  $splashMsg = "You submitted: ";            
+  $strlen = strlen($studentSubmission);
+  for($i = 0; $i < $strlen; $i++ ) {
+    $char = substr($studentSubmission, $i, 1);
+    $num = $char + 97 - 1;
+    $optionText = chr($num); 
+    $splashMsg .= $optionText." ";
+  }
+  
+  $splashMsg .= ". The correct answer was ";      
+  $strlen = strlen($correctAnswer);
+  for($i = 0; $i < $strlen; $i++ ) {
+    $char = substr($correctAnswer, $i, 1);
+    $num = $char + 97 - 1;
+    $optionText = chr($num); 
+    $splashMsg .= $optionText." ";
+  }   
+             
+  $splashMsg .= ". You earned $pointsEarned point(s) ".
+              "out of a total of $numberOfPoints point(s).";    
+              
+  return $splashMsg;
+}
 ?>

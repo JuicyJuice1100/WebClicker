@@ -3,14 +3,12 @@ require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
 require_once 'loadHtml.php';
-
 /*
     echo '<pre>';
     print_r($_POST);
     echo '</pre>';
 */
 /*Test here: http://webdev.cs.uwosh.edu/students/seymej72/TeamProject/grade.php */
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $questionId = $_POST['questionId']; //Query Active Question
   $studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
@@ -34,9 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $endTime = $question['EndTime'];
     $questionStatus = $question['QuestionStatus'];
     $questionType = $question['QuestionType'];
-
     
-
     switch ($questionType) {
       case 0: //True or False
           $studentSubmission = $_POST["truefalse"]; 
@@ -59,15 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       case 2: //Multiple Choice
           $studentSubmission = "";
           for($i = 1; $i < 10; $i++){
-            if(isset($_POST["c".$i])){
-              $studentSubmission .= $_POST["c".$i];
+            if(isset($_POST[$i])){
+              $studentSubmission .= $_POST[$i];
             }
           }
           $pointsEarned = $numberOfPoints;
           $strlen = strlen($correctAnswer);
           for($i = 0; $i < $strlen; $i++ ) {
             $char = substr($correctAnswer, $i, 1);
-            if(!isset($_POST["c".$char])){
+            if(!isset($_POST[$char])){
               $pointsEarned--;
             }
           }
@@ -119,10 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   /////////////////////////////////////////////////////////////////////////////
   
-
   
 }//End of: if ($_SERVER['REQUEST_METHOD'] === 'POST')
-
 else{ // ($_SERVER['REQUEST_METHOD'] === 'GET') 
   // 1.Include User Authentication and Check to make sure user signed in
   // 2.If(submitted solution set)
@@ -134,10 +128,5 @@ else{ // ($_SERVER['REQUEST_METHOD'] === 'GET')
   loadHtmlFile($questionId, $studentId);
  
 }
-
-
-
-
-
   
 ?>

@@ -1,9 +1,7 @@
 <?php
-
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	$questionId = getLastQuestionNumber();
@@ -22,11 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $questionType   = $_POST['question_type'];
     
     $sectionNumber = doubleval($section.".".$subSection);
-
-
 	$keywords  = $_POST['keywords'] . " " . $subject . " " . $sectionNumber;
 	
-
 ?>
 <!doctype html>
 
@@ -180,9 +175,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php			
           
             $numAnswers = $_POST['num_of_answers_radio'] + 1;
-            
+            $letter = chr(97);
             for ($i = 1; $i < $numAnswers; $i++) {
                 $question = $_POST['radio_question' . $i];
+                echo '<span>('.$letter.')</span>';
+                $letter++;
                 echo '<input type="radio" name="answer" value="'.$i.'">' . $question .
                 '<br />';
             }
@@ -242,11 +239,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				}
 			}
             $numAnswers = $_POST['num_of_answers_checkbox'] + 1;
-            
+            $letter = chr(97);
             for ($i = 1; $i < $numAnswers; $i++) {
                 $question = $_POST['checkbox_question' . $i];
-                echo '<input type="checkbox" name="c'.$i.'"value="'.$i.'">' .
-                $question . '<br />';
+                echo '<span>('.$letter.')</span>';
+                $letter++;
+                echo '<input type="checkbox" name="'.$i.'"value="'.
+                $i.'" id="Option'.$i.'"">'.$question.'<br />';
             }            
 ?>                
                     
@@ -275,7 +274,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <?php
-
 	break;
 	}
     echo '<script> document.getElementById("submitButton").disabled = true;</script>';
