@@ -57,6 +57,40 @@ require_once 'session.php';
 	<div id="content">
 	 <div id="container">
 	 <div class="centered">
+		 <?php
+	 	if (isset($_POST['averageToday']))
+			{
+	  ?>		
+			<table>	
+			 <tr>
+   			 <th>Question Number</th>
+   			 <th>Average Score</th>
+   		 	<th>Total Score</th>
+ 		 	</tr>
+			<?php
+				$todaysQuestions = getTodaysQuestions();
+				for($i=0; $i<count($todaysQuestions); $i++){				
+					echo "<tr>";
+					echo "<td>" . $todaysQuestions[$i]['QuestionId'] . "</td>";
+					echo "<td>" . $todaysQuestions[$i]['AveragePoints'] . "</td>";
+					echo "<td>" . $todaysQuestions[$i]['NumberOfPoints'] . "</td>";
+					echo "</tr>";			
+				}
+				?>
+			</table>	
+			
+			<?php
+			}
+			else{
+			?>
+			
+			<form class="inlineBlock" method="post">
+						<input type="submit" name="averageToday" value="Display Today's Averages" />
+			</form>
+				
+	<?php			
+			}
+	 ?>	
 	 	<form class="inlineBlock" method="post">
 						<input type="submit" name="deactivateAll" value="Deactivate All Questions" />
 		</form>
