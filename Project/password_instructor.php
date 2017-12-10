@@ -15,22 +15,24 @@ if (isset($_POST['instructor_submit'])) {
 		$username=$_POST['username_instructor'];
 		$password=$_POST['oldPassword_instructor'];
 		$newPassword=$_POST['confirm'];
+		$salt
 		// Establishing Connection with Server by passing server_name, user_id and password as a parameter
-		$connection = mysql_connect("localhost", "team1", "steam1", "team1");
-		// To protect MySQL injection for Security purpose
-		$username = stripslashes($username);
-		$password = stripslashes($password);
-		$username = mysql_real_escape_string($username);
-		$password = mysql_real_escape_string($password);
-		// Selecting Database
-		$db = mysql_select_db("team1", $connection);
+		// $connection = mysql_connect("localhost", "team1", "steam1", "team1");
+		// // To protect MySQL injection for Security purpose
+		// $username = stripslashes($username);
+		// $password = stripslashes($password);
+		// $username = mysql_real_escape_string($username);
+		// $password = mysql_real_escape_string($password);
+		// // Selecting Database
+		// $db = mysql_select_db("team1", $connection);
 		// SQL query to fetch information of registerd users and finds user match.
-		$query = mysql_query("SELECT * FROM Instructor WHERE HashedPassword='$password' AND Username='$username'", $connection);
-		$rows = mysql_num_rows($query);
+		$iv = mcrypt_create_iv(22,MCRYPT_DEV_URANDOM);
+		$encoded_iv = str_replace('+', '.', base64_encode($iv));
+		$salt = '$2y$10$' . $encoded_iv . '$';
 
-		if ($rows == 1) {
-			$query = mysql_query("UPDATE Instructor SET HashedPassword='$newPassword' WHERE Username='$username'", $connection);
-			$rows = mysql_num_rows($query);
+		$query = getStudentPasswordByUsername($username);
+
+		if ($query["HashedPassword"] === crypt($password, $salt) && editInstructorPassword($username, $newPassword) {
 			$error="Success! Your password has been updated.";
 		}
 		else
