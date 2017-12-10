@@ -144,11 +144,55 @@
         }
     }
     // Please note this will only search for full words not partial words
-    function getQuestionsByKeyword($keyword, $points){
+ function getQuestionsByKeyword($keyword){
         global $db;
         try {
-            $query = "SELECT * FROM Question
-                WHERE Keyword LIKE '%$keyword%' OR NumberOfPoints = $points";
+            $query = "SELECT * FROM Question 
+                WHERE Keyword LIKE '%$keyword%'";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when listing " .
+                "question.");
+        }
+    }
+    function getQuestionsByKeywordAndPoints($keyword, $points){
+        global $db;
+        try {
+            $query = "SELECT * FROM Question 
+                WHERE Keyword LIKE '%$keyword%' AND NumberOfPoints = $points";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when listing " .
+                "question.");
+        }
+    }
+    function getIncorrectQuestionsByKeyword($keyword){
+        global $db;
+        try {
+            $query = "SELECT * FROM Question 
+                INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId
+                WHERE Keyword LIKE '%$keyword%' AND NumberOfCorrectAnswers < NumberOfPoints";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when listing " .
+                "question.");
+        }
+    }
+    function getIncorrectQuestionsByKeywordAndPoints($keyword, $points){
+        global $db;
+        try {
+            $query = "SELECT * FROM Question 
+                INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId
+                WHERE Keyword LIKE '%$keyword%' AND NumberOfPoints = $points AND NumberOfCorrectAnswers < NumberOfPoints";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll();

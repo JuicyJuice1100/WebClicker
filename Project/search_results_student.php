@@ -9,6 +9,7 @@ $subSection = "";
 $pointValue = 0;
 $keywords = "";
 
+
 if(isset($_POST['searchString'])){
 	$keywords = $keywords . $_POST['searchString'];
 }
@@ -24,7 +25,23 @@ if(isset($_POST['subject'])){
 if(isset($_POST['point_value'])){
 	$pointValue = $_POST['point_value'];
 }
-$searchResults = getQuestionsByKeyword($keywords, $pointValue);
+
+	if(isset($_POST['incorrect_questions'])){
+		if($pointValue != 0){
+			$searchResults = getIncorrectQuestionsByKeywordAndPoints($keywords, $pointValue);
+		}
+		else{
+			$searchResults = getIncorrectQuestionsByKeyword($keywords);
+		}	
+	}
+	else{
+		if($pointValue != 0){
+			$searchResults = getQuestionsByKeywordAndPoints($keywords, $pointValue);
+		}
+		else{
+			$searchResults = getQuestionsByKeyword($keywords);
+		}	
+	}
 ?>
 <!doctype html>
 
