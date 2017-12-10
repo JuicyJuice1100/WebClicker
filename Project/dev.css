@@ -335,6 +335,16 @@ input[type=password], input[type=text] {
 	width: 40px;
 }
 
+/* ************ span and error messages ************* */
+
+#user_messages {
+  margin: 15px 0px 5px 50px;
+}
+
+span {
+  font-size: 16px;
+  font-style: italic;
+}
 
 /* ********************** misc ********************** */
 
