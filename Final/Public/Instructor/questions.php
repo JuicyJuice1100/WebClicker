@@ -1,9 +1,9 @@
 <?php
-require_once 'queries.php';
-require_once 'dbCredentials.php';
-require_once 'initialize.php';
-require_once 'open_close_question.php';
-require_once 'session.php';
+require_once '../../Private/queries.php';
+require_once '../../Private/dbCredentials.php';
+require_once '../../Private/initialize.php';
+require_once '../../Private/open_close_question.php';
+require_once '../../Private/session.php';
 
 
 		if (isset($_POST['submitEdit']))
@@ -28,14 +28,14 @@ require_once 'session.php';
 	<title>UWO WebCLICKER - Instructor</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" media="all" href="dev.css" />
-	<script src="./web_clicker.js"></script>
+	<link rel="stylesheet" media="all" href="../dev.css" />
+	<script src="../../Private/web_clicker.js"></script>
 </head>
 
 <body>
     <header>
 		<a href="questions_instructor.php">
-			<img id="logo" src="./images/logo.png"
+			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
@@ -44,9 +44,9 @@ require_once 'session.php';
 		<nav>
 			<ul>
 				<li><a href="logout.php">Log out</a></li>
-				<li><a href="change_password_instructor.php">Edit Account</a></li>
-				<li><a href="add_new_question_instructor.php">Add New Question</a></li>
-				<li class="selected"><a href="questions_instructor.php">Questions</a></li>
+				<li><a href="change_password.php">Edit Account</a></li>
+				<li><a href="add_new_question.php">Add New Question</a></li>
+				<li class="selected"><a href="questions.php">Questions</a></li>
 			</ul>
 		</nav>
     </header>
@@ -57,6 +57,40 @@ require_once 'session.php';
 	<div id="content">
 	 <div id="container">
 	 <div class="centered">
+		 <?php
+	 	if (isset($_POST['averageToday']))
+			{
+	  ?>		
+			<table>	
+			 <tr>
+   			 <th>Question Number</th>
+   			 <th>Average Score</th>
+   		 	<th>Total Score</th>
+ 		 	</tr>
+			<?php
+				$todaysQuestions = getTodaysQuestions();
+				for($i=0; $i<count($todaysQuestions); $i++){				
+					echo "<tr>";
+					echo "<td>" . $todaysQuestions[$i]['QuestionId'] . "</td>";
+					echo "<td>" . $todaysQuestions[$i]['AveragePoints'] . "</td>";
+					echo "<td>" . $todaysQuestions[$i]['NumberOfPoints'] . "</td>";
+					echo "</tr>";			
+				}
+				?>
+			</table>	
+			
+			<?php
+			}
+			else{
+			?>
+			
+			<form class="inlineBlock" method="post">
+						<input type="submit" name="averageToday" value="Display Today's Averages" />
+			</form>
+				
+	<?php			
+			}
+	 ?>	
 	 	<form class="inlineBlock" method="post">
 						<input type="submit" name="deactivateAll" value="Deactivate All Questions" />
 		</form>
@@ -136,14 +170,14 @@ require_once 'session.php';
 		
 		<div class="validated">	
 			<a href="https://validator.w3.org/check?uri=referer">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
 			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
 	</footer>
 	
-	<script src="./web_clicker.js"></script>
+	<script src="../../Private/web_clicker.js"></script>
 	
 	</body>
 </html>

@@ -1,6 +1,6 @@
 <?php
-include('session.php');
-include('password_student.php');
+include('../../Private/session.php');
+include('../../Private/password_student.php');
 ?>
 <!doctype html>
 
@@ -9,33 +9,33 @@ include('password_student.php');
 		<title>UWO WebCLICKER</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" media="all" href="dev.css" />
+		<link rel="stylesheet" media="all" href="../dev.css" />
 	</head>
 
 <body>
     <header>
-		<a href="quiz_student.html">
-			<img id="logo" src="./images/logo.png"
+		<a href="quiz.php">
+			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
-		<div class="header_user_type">Welcome <?php echo $access_type;
-		 ?> : <?php echo $login_session; ?></div>
+		<div class="header_user_type"><?php echo $access_type;
+		 ?></div>
 		
 		<nav>
 			<ul>
-				<li><a href="logout.php">Log out</a></li>
-				<li class="selected"><a href="change_password_student.php">
+				<li><a href="../../Private/logout.php">Log out</a></li>
+				<li class="selected"><a href="change_password.php">
 				Edit Account</a></li>				
-				<li><a href="review_student.php">Review</a></li>
-				<li><a href="quiz_student.php">Quiz</a></li>
+				<li><a href="review.php">Review</a></li>
+				<li><a href="quiz.php">Quiz</a></li>
 			</ul>
 		</nav>
     </header>
 
 <div id="user_messages">
-    	<span>user <?php echo $login_session; ?> has access type of <?php echo $access_type; ?></span><br>
-    	<span><?php echo $error; ?></span>
+    	user <?php echo $login_session;?><br />
+    	<?php echo $error; ?>
 	</div>
 
 <div id="content">
@@ -97,14 +97,16 @@ include('password_student.php');
 		</a>
 		</div>
 
-		<div class="validated">
-		   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+		<div class="validated">	
+			<a href="https://validator.w3.org/check?uri=referer">
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
+			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
 	</footer>
 	
-	<script src="./web_clicker.js"></script>
+	<script src="../../Private/web_clicker.js"></script>
 	
 	</body>
 </html>

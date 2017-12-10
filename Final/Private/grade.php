@@ -7,8 +7,6 @@ require_once 'session.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $questionId = $_POST['questionId']; //Query Active Question
-  //$studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
-  $studentId = $sessionId; 
   
   //Redirect to same page with a GET:
   header('Location: grade.php');
@@ -94,9 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
 }//End of: if ($_SERVER['REQUEST_METHOD'] === 'POST')
 else{ // ($_SERVER['REQUEST_METHOD'] === 'GET') 
-  //$studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
-  $studentId = $sessionId; //= $_COOKIE['studentId'];Get from cookie/session?
-  echo "studentID is :".$studentId;
+  // echo "studentID is :".$studentId;
   $question = getFirstActiveQuestion();
   $questionId = $question['QuestionId'];
   // Display question HTML  

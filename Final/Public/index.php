@@ -1,3 +1,10 @@
+<?php
+include('../Private/login.php'); // Includes Login Script
+if(isset($_SESSION['login_user'])){
+header("location: ../Private/profile.php");
+}
+?>
+
 <!doctype html>
 
 <html lang="en">
@@ -21,8 +28,9 @@
 			<button class="tablinks" onclick="openTab(event, 'instructor')">instructor</button>
 		</div>
 		
+		
 		<div id="student" class="tabcontent">
-		  <form class="box" action="./quiz_student.html" method="post">
+		  <form class="box" action="" method="post">
 		  
 			<div class="formTitle">Welcome Student</div>
 			
@@ -37,15 +45,17 @@
 			</div>
 			
 			<div class="centered">
-			  <input type="submit" name="submit" value="Log in"  />
+			  <input id='submit_student' type='submit' name='submit_student' value='Log In'  />
 			</div>
 			
+			<span><?php echo $error; ?></span>
+
 		  </form>
 		</div>
 		
 		
 		<div id="instructor" class="tabcontent">
-			<form class="box" action="./questions_instructor.php" method="post">
+			<form class="box" action="" method="post">
 			
 				<div class="formTitle">Welcome Instructor</div>
 				
@@ -61,9 +71,11 @@
 				</div>
 				
 				<div class="centered">
-				  <input type="submit" name="submit" value="Log in"  />
+				  <input id='submit_instructor' type='submit' name='submit_instructor' value='Log In'  />
 				</div>
 				
+				<span><?php echo $error; ?></span>
+
 			  </form>
 		</div>	
 	</div>
@@ -86,7 +98,7 @@
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
 	</footer>
 
-	<script src="./web_clicker.js"></script>
+	<script src="../Private/web_clicker.js"></script>
 	
 	</body>
 </html>

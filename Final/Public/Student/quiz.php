@@ -1,5 +1,5 @@
 <?php
-include('session.php');
+include('../../Private/session.php');
 ?>
 <!doctype html>
 
@@ -8,13 +8,13 @@ include('session.php');
 		<title>UWO WebCLICKER  - Student</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" media="all" href="dev.css" />
+		<link rel="stylesheet" media="all" href="../dev.css" />
 	</head>
 
 <body>
     <header>
-		<a href="quiz_student.php">
-			<img id="logo" src="./images/logo.png"
+		<a href="quiz.php">
+			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
@@ -22,10 +22,10 @@ include('session.php');
 		
 		<nav>
 			<ul>
-				<li><a href="logout.php">Log out</a></li>
-				<li><a href="change_password_student.php">Edit Account</a></li>				
-				<li><a href="review_student.php">Review</a></li>
-				<li  class="selected"><a href="quiz_student.php">Quiz</a></li>
+				<li><a href="../../Private/logout.php">Log out</a></li>
+				<li><a href="change_password.php">Edit Account</a></li>				
+				<li><a href="review.php">Review</a></li>
+				<li  class="selected"><a href="quiz.php">Quiz</a></li>
 			</ul>
 		</nav>
     </header>
@@ -59,14 +59,14 @@ include('session.php');
 	
     <div class="validated">	
 			<a href="https://validator.w3.org/check?uri=referer">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
 			  </a>
 		</div>
 
     <div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
   </footer>
   
-  <script src="./web_clicker.js"></script>
+	<script src="../../Private/web_clicker.js"></script>
   
   </body>
 </html>

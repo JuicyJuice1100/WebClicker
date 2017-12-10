@@ -1,6 +1,6 @@
 <?php
-include('session.php');
-include('password_instructor.php');
+include('../../Private/session.php');
+include('../../Private/password_instructor.php');
 ?>
 <!doctype html>
 
@@ -9,13 +9,13 @@ include('password_instructor.php');
 		<title>UWO WebCLICKER</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" media="all" href="dev.css" />
+		<link rel="stylesheet" media="all" href="../dev.css" />
 	</head>
 
 <body>
    <header>
-		<a href="questions_instructor.html">
-			<img id="logo" src="./images/logo.png"
+		<a href="questions.php">
+			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
@@ -23,22 +23,15 @@ include('password_instructor.php');
 		
 		<nav>
 			<ul>
-				<li><a href="logout.php">Log out</a></li>
-				<li class="selected"><a href="change_password_instructor.php">Edit Account</a></li>
-				<li><a href="add_new_question_instructor.php">Add New Question</a></li>
-				<li><a href="questions_instructor.php">Questions</a></li>
+				<li><a href="../../Private/logout.php">Log out</a></li>
+				<li class="selected"><a href="change_password.php">Edit Account</a></li>
+				<li><a href="add_new_question.php">Add New Question</a></li>
+				<li><a href="questions.php">Questions</a></li>
 			</ul>
 		</nav>
     </header>
-    
-<div id="user_messages">
-    	<span>user <?php echo $login_session; ?> has access type of <?php echo $access_type; ?></span><br>
-    	<span><?php echo $error; ?></span>
-	</div>
-	
 <div id="content">
-      <form class="box" onsubmit="submitPasswordChangeInstructor(); return false;"
-            method="post"> 
+      <form class="box" action="" method="post"> 
 			
         <div class="formTitle">Change password</div>
 		
@@ -97,14 +90,16 @@ include('password_instructor.php');
 				  alt="Valid CSS!" />
 			</a>
 		</div>
-		<div class="validated">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+		<div class="validated">	
+			<a href="https://validator.w3.org/check?uri=referer">
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
+			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
 	</footer>
 	
-	<script src="./web_clicker.js"></script>
+	<script src="../../Private/web_clicker.js"></script>
 	
 	</body>
 </html>

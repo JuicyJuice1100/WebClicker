@@ -23,9 +23,9 @@
     function getQuestionById($id) {
         global $db; 
         try {
-            $query = "SELECT * FROM Question WHERE QuestionId = $id";
+            $query = "SELECT * FROM Question WHERE QuestionId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return  $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             db_disconnect();
@@ -62,9 +62,9 @@
     function deleteQuestionById($id){
         global $db;
         try {
-            $query = "DELETE FROM Question WHERE QuestionId = $id";
+            $query = "DELETE FROM Question WHERE QuestionId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -77,9 +77,9 @@
         try {
             $query = "SELECT AveragePoints 
                 FROM Question 
-                WHERE QuestionId = $id";
+                WHERE QuestionId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
@@ -105,9 +105,9 @@
                 ,EndTime = EndTime
                 ,QuestionStatus = QuestionStatus
                 ,QuestionType = QuestionType
-                WHERE QuestionId = $id";
+                WHERE QuestionId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute([$questionStatement, $numberOfPoints, $keyword, $sectionNumber]);
+            $stmt->execute([$questionStatement, $numberOfPoints, $keyword, $sectionNumber, $id]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -161,9 +161,9 @@
         global $db;
         try {
             $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE '%$keyword%'";
+                WHERE Keyword LIKE '%'?'%'";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$keyword]);
             return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
@@ -175,9 +175,9 @@
         global $db;
         try {
             $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE '%$keyword%' AND NumberOfPoints = $points";
+                WHERE Keyword LIKE '%'?'%' AND NumberOfPoints = '?'";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$keyword, $points]);
             return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
@@ -190,9 +190,9 @@
         try {
             $query = "SELECT * FROM Question 
                 INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId
-                WHERE Keyword LIKE '%$keyword%' AND NumberOfCorrectAnswers < NumberOfPoints";
+                WHERE Keyword LIKE '%'?'%' AND NumberOfCorrectAnswers < NumberOfPoints";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$keyword]);
             return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
@@ -205,9 +205,9 @@
         try {
             $query = "SELECT * FROM Question 
                 INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId
-                WHERE Keyword LIKE '%$keyword%' AND NumberOfPoints = $points AND NumberOfCorrectAnswers < NumberOfPoints";
+                WHERE Keyword LIKE '%'?'%' AND NumberOfPoints = ? AND NumberOfCorrectAnswers < NumberOfPoints";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$keyword, $points]);
             return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
@@ -245,10 +245,10 @@
         global $db;
         try{
             $query = "UPDATE Question
-                SET QuestionStatus = $status
-                WHERE QuestionId = $id";
+                SET QuestionStatus = ?
+                WHERE QuestionId = ?";
                 $stmt = $db->prepare($query);
-                $stmt->execute();
+                $stmt->execute([$status, $id]);
                 return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -278,9 +278,9 @@
     function deleteStudentById($id){
         global $db;
         try {
-            $query = "DELETE FROM Student WHERE StudentId = $id";
+            $query = "DELETE FROM Student WHERE StudentId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -303,7 +303,8 @@
                 ,LastLogout = $lastLogout
                 WHERE StudentId = $id";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$username, $firstName, $lastName, $email, 
+            $hashedPassword, $passwordChanges, $lastLogin, $lastLogout, $id]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -315,9 +316,9 @@
     global $db;
         try {
         $query = "UPDATE Student
-                SET hashedPassword = $hashedPassword
+                SET hashedPassword = '$hashedPassword'
                 PasswordChanges = PasswordChanges + 1
-                WHERE Username = $username";
+                WHERE Username = '$username'";
         $stmt = $db->prepare($query);
         $stmt->execute();
         return true;
@@ -342,9 +343,9 @@
     function getStudentById($id){
         global $db;
         try {
-            $query = "SELECT * FROM Student WHERE StudentId = $id";
+            $query = "SELECT * FROM Student WHERE StudentId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute($id);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
@@ -355,9 +356,9 @@
     function getStudentPasswordByUsername($username){
         global $db;
         try{
-            $query = "SELECT HashedPassword FROM Student WHERE Username = $username";
+            $query = "SELECT * FROM Student WHERE Username = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$username]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
@@ -387,9 +388,9 @@
     function deleteInstructorById($id){
         global $db;
         try {
-            $query = "DELETE FROM Instructor WHERE InstructorId = $id";
+            $query = "DELETE FROM Instructor WHERE InstructorId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -402,17 +403,18 @@
         global $db;
         try {
             $query = "UPDATE Instructor
-                SET Username = $username
-                ,FirstName = $firstName
-                ,LastName = $lastName
-                ,Email = $email
-                ,HashedPassword = $hashedPassword
-                ,PasswordChanges = $passwordChanges
-                ,LastLogin = $lastLogin
-                ,LastLogout = $lastLogout
-                WHERE InstructorId = $id";
+                SET Username = ?
+                ,FirstName = ?
+                ,LastName = ?
+                ,Email = ?
+                ,HashedPassword = ?
+                ,PasswordChanges = ?
+                ,LastLogin = ?
+                ,LastLogout = ?
+                WHERE InstructorId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$username, $firstName, $lastName, $email, 
+            $hashedPassword, $passwordChanges, $lastLogin, $lastLogout, $id]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -424,11 +426,11 @@
     global $db;
         try {
         $query = "UPDATE Instructor
-                SET hashedPassword = $hashedPassword
+                SET hashedPassword = ?
                 PasswordChanges = PasswordChanges + 1
-                WHERE Username = $username";
+                WHERE Username = ?";
         $stmt = $db->prepare($query);
-        $stmt->execute();
+        $stmt->execute([$hashedPassword, $username]);
         return true;
     } catch (PDOException $e){
         db_disconnect();
@@ -451,9 +453,9 @@
     function getInstructorById($id){
         global $db;
         try {
-            $query = "SELECT * FROM Instructor WHERE InstructorId = $id";
+            $query = "SELECT * FROM Instructor WHERE InstructorId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
@@ -464,9 +466,9 @@
     function getInstructorPasswordByUsername($username){
         global $db;
         try{
-            $query = "SELECT HashedPassword FROM Instructor WHERE Username = $username";
+            $query = "SELECT * FROM Instructor WHERE Username = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$username]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
@@ -481,9 +483,9 @@
         try {
             $query = "SELECT * FROM SubmittedSolutions 
                     INNER JOIN Question ON SubmittedSolutions.QuestionId = Question.QuestionId
-                    WHERE SubmittedSolutions.QuestionId = $questionId AND StudentId = $studentId";
+                    WHERE SubmittedSolutions.QuestionId = ? AND StudentId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$questionId, $studentId]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();
@@ -495,9 +497,9 @@
         global $db;
         try{
             $query = "SELECT * FROM SubmittedSolutions
-                    WHERE QuestionId = $questionId";
+                    WHERE QuestionId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$questionId]);
             return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
@@ -522,11 +524,11 @@
         global $db;
         try {
             $query = "UPDATE SubmittedSolutions
-                SET StudentSubmission = $studentSubmission
-                PointsEarned = $pointsEarned
-                WHERE QuestionId = $questionId AND StudentId = $studentId";
+                SET StudentSubmission = ?
+                PointsEarned = ?
+                WHERE QuestionId = ? AND StudentId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$questionId, $studentId, $studentSubmission, $pointsEarned]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -538,9 +540,9 @@
         global $db;
         try {
             $query = "DELETE FROM Submittedsolutions 
-                WHERE QuestionId = $questionId AND StudentId = $studentId";
+                WHERE QuestionId = ? AND StudentId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$questionId, $studentId]);
             return true;
         } catch (PDOException $e){
             db_disconnect();
@@ -553,9 +555,9 @@
         try {
             $query = "SELECT AVG(PointsEarned)
                 FROM SubmittedSolutions
-                WHERE QuestionId = $id";
+                WHERE QuestionId = ?";
             $stmt = $db->prepare($query);
-            $stmt->execute();
+            $stmt->execute([$id]);
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e){
             db_disconnect();

@@ -1,5 +1,5 @@
 <?php		
-include('session.php');		
+include('../../Private/session.php');		
 ?>
 <!doctype html>
 
@@ -9,26 +9,26 @@ include('session.php');
     <title>UWO WebCLICKER - Instructor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" media="all" href="dev.css" />
-    <script src="./web_clicker.js"></script>
+    <link rel="stylesheet" media="all" href="../dev.css" />
+    <script src="../../Private/web_clicker.js"></script>
 </head>
 
 <body>
     <header>
-        <a href="questions_instructor.php">
-            <img id="logo" src="./images/logo.png" width="250" alt="UWO WebCLICKER logo" />
+        <a href="questions.php">
+            <img id="logo" src="../images/logo.png" width="250" alt="UWO WebCLICKER logo" />
         </a>
 
         <div class="header_user_type"><?php echo $access_type; ?></div>
 
         <nav>
             <ul>
-              <li><a href="logout.php">Log out</a></li>
-              <li><a href="change_password_instructor.php">
+              <li><a href="../../Private/logout.php">Log out</a></li>
+              <li><a href="change_password.php">
               Edit Account</a></li>
-              <li class="selected"><a href="add_new_question_instructor.php">
+              <li class="selected"><a href="add_new_question.php">
               Add New Question</a></li>
-              <li><a href="questions_instructor.php">Questions</a></li>
+              <li><a href="questions.php">Questions</a></li>
             </ul>
         </nav>
     </header>
@@ -160,14 +160,14 @@ include('session.php');
 
      	<div class="validated">	
 			<a href="https://validator.w3.org/check?uri=referer">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
 			  </a>
 		</div>
 		
         <div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
     </footer>
 
-    <script src="./web_clicker.js"></script>
+    <script src="../../Private/web_clicker.js"></script>
 
 </body>
 

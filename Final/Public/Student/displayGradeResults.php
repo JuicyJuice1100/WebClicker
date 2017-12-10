@@ -2,6 +2,8 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
+require 'session.php';
+
 function loadHtmlFile($questionId, $studentId){
   if(isset($questionId)){
     $question = getQuestionById($questionId);
@@ -23,8 +25,7 @@ function loadHtmlFile($questionId, $studentId){
                      width="250" alt="UWO WebCLICKER logo" />
           </a>
           
-          <div class="header_user_type">Welcome <?php echo $access_type;
-		 ?> : <?php echo $login_session; ?></div>
+          <div class="header_user_type"><?php echo $access_type;?></div>
 		
 		<nav>
 			<ul>
@@ -37,8 +38,7 @@ function loadHtmlFile($questionId, $studentId){
     </header>
 
     <div id="user_messages">
-    	<span>user <?php echo $login_session; ?> has access type of 
-    	<?php echo $access_type; ?></span>
+    	<span>user: <?php echo $login_session; ?></span>
 	</div>
 
   <div id="content">

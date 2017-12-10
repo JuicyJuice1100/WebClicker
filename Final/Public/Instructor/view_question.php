@@ -1,8 +1,8 @@
 <?php
-require_once 'queries.php';
-require_once 'dbCredentials.php';
-require_once 'initialize.php';
-require_once 'session.php';
+require_once '../../Private/queries.php';
+require_once '../../Private/dbCredentials.php';
+require_once '../../Private/initialize.php';
+require_once '../../Private/session.php';
 
 $question = getQuestionById($_POST['questionId']);
 
@@ -15,14 +15,14 @@ $question = getQuestionById($_POST['questionId']);
 		<title>UWO WebCLICKER - Instructor</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" media="all" href="dev.css" />
-		<script src="./web_clicker.js"></script>
+		<link rel="stylesheet" media="all" href="../dev.css" />
+		<script src="../../Private/web_clicker.js"></script>
 	</head>
 
 <body>
     <header>
-		<a href="questions_instructor.php">
-			<img id="logo" src="./images/logo.png"
+		<a href="questions.php">
+			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
@@ -30,11 +30,10 @@ $question = getQuestionById($_POST['questionId']);
 		
 		<nav>
 			<ul>
-				<li><a href="sign_in.php">Log out</a></li>
-				<li><a href="change_password_instructor.html">Edit Account</a></li>
-				<li><a href="add_new_question_instructor.html">Add New Question</a></li>
-				<li class="selected"><a href="results_instructor.php">Results</a></li>
-				<li><a href="questions_instructor.php">Questions</a></li>
+				 <li><a href="../../Private/logout.php">Log out</a></li>
+				<li><a href="change_password.html">Edit Account</a></li>
+				<li><a href="add_new_question.html">Add New Question</a></li>
+				<li><a href="questions.php">Questions</a></li>
 			</ul>
 		</nav>
     </header>
@@ -78,15 +77,15 @@ $question = getQuestionById($_POST['questionId']);
 	
 		<div class="validated">	
 			<a href="https://validator.w3.org/check?uri=referer">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
 			  </a>
 		</div>
 
     <div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
   </footer>
   
-  <script src="./web_clicker.js"></script>
-  <script src="./BarGraph.js"></script>
+  <script src="../../Private/web_clicker.js"></script>
+  <script src="../../Private/BarGraph.js"></script>
   </body>
 </html>
 
