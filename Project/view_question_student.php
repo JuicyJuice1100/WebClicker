@@ -63,14 +63,15 @@ $question = getQuestionById($_POST['questionId']);
         </a>
     </div>
 	
-    <div class="validated">
-           <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
-    </div>
+    <div class="validated">	
+			<a href="https://validator.w3.org/check?uri=referer">
+			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			  </a>
+		</div>
 
     <div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
   </footer>
   
   <script src="./web_clicker.js"></script>
-  <script src="./BarGraph.js"></script>
   </body>
 </html>

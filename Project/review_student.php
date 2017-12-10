@@ -118,9 +118,12 @@ require_once 'initialize.php';
 			$max = $max-1;
 	}
 	?>			  		
-	</div>		
+	</div>
+
+	
 </div>
 	<footer>
+	
 		<div class="validated">
 			 <a href="http://jigsaw.w3.org/css-validator/check/referer">
 			   <img
@@ -129,8 +132,10 @@ require_once 'initialize.php';
 			</a>
 		</div>
 		
-		<div class="validated">
+		<div class="validated">	
+			<a href="https://validator.w3.org/check?uri=referer">
 			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>

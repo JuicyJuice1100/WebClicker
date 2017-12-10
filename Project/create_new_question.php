@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </head>
 <body>
  <header>
-        <a href="questions_instructor.html">
+        <a href="questions_instructor.php">
             <img id="logo" src="./images/logo.png"
                    width="250" alt="UWO WebCLICKER logo" />
         </a>

@@ -25,7 +25,7 @@ else{
 <script src="./web_clicker.js"></script>
 <body>
     <header>
-		<a href="questions_instructor.html">
+		<a href="questions_instructor.php">
 			<img id="logo" src="./images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
@@ -145,8 +145,10 @@ else{
 			</a>
 		</div>
 		
-		<div class="validated">
+		<div class="validated">	
+			<a href="https://validator.w3.org/check?uri=referer">
 			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
