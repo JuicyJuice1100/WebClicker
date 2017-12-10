@@ -150,21 +150,6 @@
     }
 
     // Please note this will only search for full words not partial words
-    function getQuestionsByKeyword($keyword, $points){
-        global $db;
-        try {
-            $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE '%$keyword%' OR NumberOfPoints = $points";
-            $stmt = $db->prepare($query);
-            $stmt->execute();
-            return $stmt->fetchAll();
-        } catch (PDOException $e){
-            db_disconnect();
-            exit("Aborting: There was a database error when listing " .
-                "question.");
-        }
-    }
-
     function getQuestionsByKeyword($keyword){
         global $db;
         try {
@@ -211,7 +196,7 @@
         }
     }
 
-    function getQuestionsByKeywordAndPoints($keyword, $points){
+    function getIncorrectQuestionsByKeywordAndPoints($keyword, $points){
         global $db;
         try {
             $query = "SELECT * FROM Question 
