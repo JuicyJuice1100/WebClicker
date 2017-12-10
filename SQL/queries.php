@@ -150,7 +150,7 @@
     }
 
     // Please note this will only search for full words not partial words
-    function getQuestionsByKeyword($keyword, $points, $studentId){
+    function getQuestionsByKeyword($keyword, $points){
         global $db;
         try {
             $query = "SELECT * FROM Question 
