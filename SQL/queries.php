@@ -154,8 +154,7 @@
         global $db;
         try {
             $query = "SELECT * FROM Question 
-                INNER JOIN SubmittedSolutions ON Question.QuestionId = SubmittedSolutions.QuestionId
-                WHERE (Keyword LIKE '%$keyword%' OR NumberOfPoints = $points) AND StudentId = $studentId";
+                WHERE Keyword LIKE '%$keyword%' OR NumberOfPoints = $points";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetchAll();
