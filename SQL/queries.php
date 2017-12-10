@@ -361,7 +361,7 @@
     function getStudentPasswordByUsername($username){
         global $db;
         try{
-            $query = "SELECT HashedPassword FROM Student WHERE Username = $username";
+            $query = "SELECT StudentId, HashedPassword FROM Student WHERE Username = $username";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -476,7 +476,7 @@
     function getInstructorPasswordByUsername($username){
         global $db;
         try{
-            $query = "SELECT HashedPassword FROM Instructor WHERE Username = $username";
+            $query = "SELECT InstructorId, HashedPassword FROM Instructor WHERE Username = $username";
             $stmt = $db->prepare($query);
             $stmt->execute();
             return $stmt->fetch(PDO::FETCH_ASSOC);
