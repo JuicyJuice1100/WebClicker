@@ -2,6 +2,7 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
+require_once 'session.php';
 ?>
 
 <!doctype html>
@@ -21,18 +22,23 @@ require_once 'initialize.php';
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
-		<div class="header_user_type">Instructor</div>
+		<div class="header_user_type">Welcome <?php echo $access_type; ?> : <?php echo $login_session; ?></div>
 		
 		<nav>
 			<ul>
-				<li><a href="sign_in.html">Log out</a></li>
-				<li><a href="change_password_instructor.html">Edit Account</a></li>
-				<li><a href="add_new_question_instructor.html">Add New Question</a></li>
-				<li><a href="results_instructor.html">Results</a></li>
+				<li><a href="logout.php">Log out</a></li>
+				<li><a href="change_password_instructor.php">Edit Account</a></li>
+				<li><a href="add_new_question_instructor.php">Add New Question</a></li>
+				<li><a href="results_instructor.php">Results</a></li>
 				<li class="selected"><a href="questions_instructor.php">Questions</a></li>
 			</ul>
 		</nav>
     </header>
+
+    <div id="user_messages">
+    	<span>user <?php echo $login_session; ?> has access type of 
+    	<?php echo $access_type; ?> </span>
+	</div>
 	
  <div id="content">
 	 <div id="container">
@@ -57,8 +63,10 @@ require_once 'initialize.php';
 						<input type="submit" value="View" />
 					</form>
 					 
-					<button type="button" onclick="editQuestion(1)">
-					Edit</button>	 
+					<form class="inlineBlock" action="edit_question.php" method="post">
+						<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?> " />
+						<input type="submit" value="Edit" />
+					</form> 
 				</div>
 				
 				<div class="centered">
