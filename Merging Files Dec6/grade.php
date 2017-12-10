@@ -2,18 +2,15 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-require_once 'loadHtml.php';
-/*
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
-*/
-/*Test here: http://webdev.cs.uwosh.edu/students/seymej72/TeamProject/grade.php */
+require_once 'displayGradeResults.php';
+require_once 'session.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $questionId = $_POST['questionId']; //Query Active Question
-  $studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
+  //$studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
+  $studentId = $sessionId; 
   
-  //Redirect to same page with a GET: - Needs to be dynamic:
+  //Redirect to same page with a GET:
   header('Location: grade.php');
   $studentSubmission = getSubmission($questionId, $studentId)['StudentSubmission'];
   
@@ -96,37 +93,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     insertSubmission($questionId, $studentId, $studentSubmission, $pointsEarned);
   }
   
-  
-  
-  //Delete below else after testing:///////////////////////////////////////////
-  else {//Student already answered - don't grade just display answer
-  $submission = getSubmission($questionId, $studentId);
-  $studentSubmission = $submission['StudentSubmission'];
-  $pointsEarned = $submission['PointsEarned'];
-  
-  $question = getQuestionById($questionId);
-  $correctAnswer = $question['CorrectAnswer'];
-  $numberOfPoints = $question['NumberOfPoints'];
-  
-  echo "(*After Answering: Display splash message with graded info)<br /> This student already ".
-  "answered the question. They submitted: $studentSubmission. The correct ".
-  "answer was $correctAnswer. They earned $pointsEarned point(s) out of a ".
-  "total of $numberOfPoints point(s).<br />";
-  }
-  /////////////////////////////////////////////////////////////////////////////
-  
-  
 }//End of: if ($_SERVER['REQUEST_METHOD'] === 'POST')
 else{ // ($_SERVER['REQUEST_METHOD'] === 'GET') 
-  // 1.Include User Authentication and Check to make sure user signed in
-  // 2.If(submitted solution set)
-  //   {Display Splash Mssg)
-  $studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
+  //$studentId = 1; //= $_COOKIE['studentId'];Get from cookie/session?
+  $studentId = $sessionId; //= $_COOKIE['studentId'];Get from cookie/session?
   $question = getFirstActiveQuestion();
   $questionId = $question['QuestionId'];
-  // 3.Then display question HTML  
+  // Display question HTML  
   loadHtmlFile($questionId, $studentId);
- 
 }
   
 ?>
