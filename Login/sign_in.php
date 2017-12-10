@@ -1,42 +1,95 @@
 <?php
+/* required hashing algorithm:
+  $iv = mcrypt_create_iv(22,MCRYPT_DEV_URANDOM);
+  $encoded_iv = str_replace('+', '.', base64_encode($iv));
+  $salt = '$2y$10$' . $encoded_iv . '$';
+  $hashed_password = crypt($pwd,$salt);
 
-// check which tab is selected Student / Instructor
-// grab info from form and check with database
-// confirm credentials are authorized
-// redirect to next page or display error message accordingly
+  then: the submitted passord is correct iff the following is true
+          $hashed_password === crypt($submitted_password,$hashed_password)
 
-include("user_account_functions.php");
-if (isset($_REQUEST["username_student"]) && isset($_REQUEST["password_student"]) && isset ( $_POST['submit'] )) {
-	// student login
-  $username = $_REQUEST["username_student"];
-  $password = $_REQUEST["password_student"];
-  
-  if (getStudentPasswordByUsername($username)) {
-    if (isset($_SESSION)) {
-      session_destroy();
-      session_regenerate_id(TRUE);
-      session_start();
-    }
-    $_SESSION["name"] = $name;     // start session, remember user info
-    redirect("quiz_student.html", "Login successful");
-  }
+  watch out:
+    === string comparison is vulnerable to timing attacks (but that's
+    OK for our class project)
+*/
+
+session_start(); // start session
+$error=''; // error message variable
+
+if (isset($_POST['submit_instructor'])) {
+	if (empty($_POST['username_instructor']) || empty($_POST['password_instructor'])) {
+		$error = "Error Instructor : username or password field is empty";
+	}
+	else{
+
+		// Define $username and $password
+		$username=$_POST['username_instructor'];
+		$password=$_POST['password_instructor'];
+
+		// Establish connection (this is already established)
+		// $connection = mysql_connect("localhost", "team1", "steam1", "team1");
+
+		// protect against SQL injection for security
+		$username = stripslashes($username);
+		$password = stripslashes($password);
+		$username = mysql_real_escape_string($username);
+		$password = mysql_real_escape_string($password);
+
+		// select database (this is already established)
+		// $db = mysql_select_db("team1", $connection);
+
+		// SQL query to fetch information of registerd users and finds user match.
+		$query = mysql_query("SELECT * FROM Instructor WHERE HashedPassword='$password' AND Username='$username'", $connection);
+		$rows = mysql_num_rows($query);
+		if ($rows == 1) {
+			$_SESSION['login_user']=$username; // initialize session variables
+			$_SESSION['instructor']=true;
+			header("location: profile.php"); // redirect to user account type home page
+		} else {
+			$error = "Error Instructor : username or password is incorrect";
+		}
+
+	mysql_close($connection); // close connection
+	
+	}
+	
 }
-else if(isset($_REQUEST["username_instructor"]) && isset($_REQUEST["password_instructor"]) && isset ( $_POST['submit'] )){
-	// instructor login
-  $name = $_REQUEST["username_instructor"];
-  $password = $_REQUEST["password_instructor"];
-  if (getInstructorPasswordByUsername($username)) {
-    if (isset($_SESSION)) {
-      session_destroy();
-      session_regenerate_id(TRUE);
-      session_start();
-    }
-    $_SESSION["name"] = $name;     // start session, remember user info
-    redirect("questions_instructor.html", "Login successful");
-  }
+
+if (isset($_POST['submit_student'])) {
+	if (empty($_POST['username_student']) || empty($_POST['password_student'])) {
+		$error = "Error Student : username or password field is empty";
+	}
+	else{
+
+		// Define $username and $password
+		$username=$_POST['username_student'];
+		$password=$_POST['password_student'];
+
+		// Establish connection
+		$connection = mysql_connect("localhost", "team1", "steam1", "team1");
+
+		// protect against SQL injection for security
+		$username = stripslashes($username);
+		$password = stripslashes($password);
+		$username = mysql_real_escape_string($username);
+		$password = mysql_real_escape_string($password);
+
+		// select database
+		$db = mysql_select_db("team1", $connection);
+
+		// SQL query to fetch information of registerd users and finds user match.
+		$query = mysql_query("SELECT * FROM Student WHERE HashedPassword='$password' AND Username='$username'", $connection);
+		$rows = mysql_num_rows($query);
+			if ($rows == 1) {
+			$_SESSION['login_user']=$username; // initialize session variables
+			$_SESSION['instructor']=false;
+			header("location: profile.php"); // redirect to user account type home page
+		} else {
+			$error = "Error Student : username or password is incorrect";
+		}
+
+	mysql_close($connection); // close connection
+	}
 }
-  else {
-    redirect("sign_in.html", "Incorrect username or password.");
-  }
-}
+
 ?>
