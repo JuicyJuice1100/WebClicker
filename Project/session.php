@@ -14,7 +14,7 @@ if($_SESSION['instructor'] === true){
 	$access_type ="Instructor";
 }
 else {
-	$session=getInstructorPasswordByUsername($user);
+	$session=getStudentPasswordByUsername($user);
 	$access_type ="Student";
 }
 
