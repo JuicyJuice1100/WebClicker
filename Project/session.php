@@ -23,8 +23,8 @@ $row = mysql_fetch_assoc($ses_sql);
 $login_session =$row['Username'];
 
 if(!isset($login_session)) {
-mysql_close($connection); // Closing Connection
-header('location: index.php'); // Redirecting To Home Page
+mysql_close($connection); // close connection
+header('location: index.php'); // redirect to home
 }
 
 ?>
