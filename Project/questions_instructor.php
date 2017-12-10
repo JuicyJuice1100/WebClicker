@@ -50,9 +50,11 @@ require_once 'open_close_question.php';
 	
  <div id="content">
 	 <div id="container">
+	 <div class="centered">
 	 	<form class="inlineBlock" method="post">
 						<input type="submit" name="deactivateAll" value="Deactivate All Questions" />
 		</form>
+	</div>
 		<?php 
 		$questions = getAllQuestions();	 
 		$i = -1;

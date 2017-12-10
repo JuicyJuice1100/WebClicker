@@ -64,7 +64,7 @@ function closeAllQuestions(){
 		$allOpenQuestions = getAllOpenQuestions();
 		$max = count($allOpenQuestions);
 		for($i = 0; $i<$max; $i++){
-  			$question = getQuestionById($allOpenQuestions[$i]['QuestionId']);
+  			$questionId = $allOpenQuestions[$i]['QuestionId'];
   			$questionStatement = $allOpenQuestions[$i]['QuestionStatement'];
   			$correctAnswer = $allOpenQuestions[$i]['CorrectAnswer'];
   			$numberOfPoints = $allOpenQuestions[$i]['NumberOfPoints'];
@@ -82,7 +82,6 @@ function closeAllQuestions(){
 			
 	if($questionStatus == 2){
     	$questionStatus = 0;
-
     	$query_result = getCalculatedAverageBy($questionId); 
 
    	 if($query_result){
