@@ -226,20 +226,21 @@ div.tab button.active {
 	margin: 30px auto;
 	border-radius: 10px;
 	box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 0.3);
-	width: 680px;
+	max-width: 680px;
 	box-sizing: border-box;
+
 }
 .searchBar input[type="submit"]{
 	float: right;	
-	width: 200px;
+	width: 40%;
 	margin-top:0;
 }
 .searchBar input[type="search"]{
 	height: 53px;
-	width: 390px;
+	width: 55%;
 	font-size: 24px;
+	
 }
-
 .tags{
 	margin: 20px 0;
 }
