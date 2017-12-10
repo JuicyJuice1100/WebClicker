@@ -14,7 +14,7 @@ include('session.php');
 <body>
      <header>
 		<a href="quiz_student.html">
-			<img id="logo" src="./images/logo.png"
+			<img id="logo" src="./Images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
@@ -164,7 +164,7 @@ include('session.php');
 		</div>
 		
 		<div class="validated">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			   <img class="html5" src="./Images/html5.png" alt="\'Valid\' HTML5" />
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
