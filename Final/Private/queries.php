@@ -565,4 +565,17 @@
                 "submission stats.");
         }
     }
+function getTodaysQuestions(){
+    	 global $db;
+        try {
+            $query = "SELECT * FROM Question WHERE EndTime > DATE_SUB(CURDATE(),INTERVAL 1 DAY)";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when retrieving " .
+                "the averages.");
+        }
+    }
 ?>
