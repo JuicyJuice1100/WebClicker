@@ -21,8 +21,9 @@ else{
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" media="all" href="dev.css" />
+	<script src="./web_clicker.js"></script>
 </head>
-<script src="./web_clicker.js"></script>
+
 <body>
     <header>
 		<a href="questions_instructor.php">
@@ -51,8 +52,6 @@ else{
 				Section <?php echo $question['SectionNumber']; ?></h1>
 				<input type="hidden" name="questionId" value="<?php echo $question['QuestionId'];?>" />
 				<input type="hidden" name="section" value="<?php echo $question['SectionNumber']; ?>" />
-				<input type="hidden" name="Products" value="" />
-
 			
                 <div>Description:</div>
 
@@ -69,9 +68,7 @@ else{
 
 					?>				
                         <label for="section">Section:</label>
-                        <select id="section" name="section" required>
-						
-
+                        <select id="section" name="section">								
                             <option value="1" <?php if ($intpart == 1) echo "selected"?>>1</option>
                             <option value="2" <?php if ($intpart == 2) echo "selected"?>>2</option>
                             <option value="3" <?php if ($intpart == 3) echo "selected"?>>3</option>
@@ -79,7 +76,7 @@ else{
                         </select>
 
                         <label for="sub_section">Sub-section:</label>
-                        <select id="sub_section" name="sub_section" required>
+                        <select id="sub_section" name="sub_section">
 
                             <option value="1" <?php if ($fraction == "0.1") echo "selected"?>>1</option>
                             <option value="2" <?php if ($fraction == "0.2") echo "selected"?>>2</option>
@@ -109,7 +106,7 @@ else{
 
 						?>
                         <label for="subject">Subject:</label>
-                        <select id="subject" name="subject" required>
+                        <select id="subject" name="subject">
                             <option value="HTML" <?php if ($subject == 1) echo "selected"?> >HTML</option>
                             <option value="CSS" <?php if ($subject == 2) echo "selected"?>>CSS</option>
                             <option value="PHP" <?php if ($subject == 3) echo "selected"?>>PHP</option>
@@ -131,6 +128,7 @@ else{
 
                 <div class="centered">
                     <input type="submit" name="submitEdit" value="Submit Changes">
+                </div>
                 </div>
             </form>		 
 	</div>    		

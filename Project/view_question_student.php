@@ -15,8 +15,9 @@ $question = getQuestionById($_POST['questionId']);
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" media="all" href="dev.css" />
+		 <script src="./web_clicker.js"></script>
 	</head>
- <script src="./web_clicker.js"></script>
+
  
 <body>
     <header>

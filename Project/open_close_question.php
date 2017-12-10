@@ -60,4 +60,8 @@ function closeQuestion($questionId){
       
   }
 }
+function closeAllQuestions(){
+
+
+}
 ?>

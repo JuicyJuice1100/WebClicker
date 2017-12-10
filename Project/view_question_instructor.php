@@ -15,8 +15,9 @@ $question = getQuestionById($_POST['questionId']);
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" media="all" href="dev.css" />
+		 <script src="./web_clicker.js"></script>
 	</head>
- <script src="./web_clicker.js"></script>
+
  
 <body>
     <header>
@@ -40,8 +41,7 @@ $question = getQuestionById($_POST['questionId']);
  <div id="content">
 	 <div id="container">
 	 <div class="question_in_review">
-			<p><?php echo $question['QuestionStatement']; ?>
-			</p>
+			<?php echo $question['QuestionStatement']; ?>
 			<div class="centered">
 				<form class="inlineBlock" action="edit_question.php" method="post">
 						<input type="hidden" name="questionId" value="<?php echo $question['QuestionId'];?>  " />
