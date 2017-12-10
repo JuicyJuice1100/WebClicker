@@ -46,6 +46,19 @@
                 "questions.");
         }
     }
+    function getAllOpenQuestions(){
+        global $db;
+        try {
+            $query = "SELECT * FROM Question WHERE StartTime > 0";
+            $stmt = $db->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            db_disconnect();
+            exit("Aborting: There was a database error when listing " .
+                "questions.");
+        }
+    }
     function deleteQuestionById($id){
         global $db;
         try {

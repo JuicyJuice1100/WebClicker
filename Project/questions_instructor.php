@@ -13,6 +13,10 @@ require_once 'open_close_question.php';
 				editQuestionByIdShort($_POST['questionId'], $_POST['question_description'], $_POST['point_value'], 
 				$keywords, $sectionNumber);
 			}
+		if (isset($_POST['deactivateAll']))
+			{
+				closeAllQuestions();
+			}
 ?>
 
 <!doctype html>
@@ -46,6 +50,9 @@ require_once 'open_close_question.php';
 	
  <div id="content">
 	 <div id="container">
+	 	<form class="inlineBlock" method="post">
+						<input type="submit" name="deactivateAll" value="Deactivate All Questions" />
+		</form>
 		<?php 
 		$questions = getAllQuestions();	 
 		$i = -1;
