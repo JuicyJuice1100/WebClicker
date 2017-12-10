@@ -3,7 +3,7 @@
     *=============================== Question ====================================* 
     *******************************************************************************/
     function insertQuestion($id, $questionStatement, $correctAnswer, $numberOfPoints, 
-    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberofCorrectAnswers,
+    $topicDescription, $keyword, $sectionNumber, $phpGraderCode, $numberOfCorrectAnswers,
     $averagePoints, $startTime, $endTime, $questionStatus, $questionType) {
         global $db;
         try {
@@ -144,14 +144,14 @@
         }
     }
     // Please note this will only search for full words not partial words
-    function getQuestionsByKeyword($keyword){
+    function getQuestionsByKeyword($keyword, $points){
         global $db;
         try {
-            $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE %$keyword%";
+            $query = "SELECT * FROM Question
+                WHERE Keyword LIKE '%$keyword%' OR NumberOfPoints = $points";
             $stmt = $db->prepare($query);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetchAll();
         } catch (PDOException $e){
             db_disconnect();
             exit("Aborting: There was a database error when listing " .

@@ -57,7 +57,7 @@ require_once 'open_close_question.php';
 		 
 					<h1>Q<?php echo $questions[$max]['QuestionId'];?> - Section <?php echo $questions[$max]['SectionNumber'];?></h1>
 					
-					<p>Description: <pre><?php echo $questions[$max]['TopicDescription'];?></pre></p>
+					<p>Description: <?php echo $questions[$max]['TopicDescription'];?></p>
 					
 					<p>Class Average: <?php echo $questions[$max]['AveragePoints']. "/" . $questions[$max]['NumberOfPoints'];?></p>	
 					
