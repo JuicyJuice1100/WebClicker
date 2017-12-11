@@ -1,8 +1,7 @@
 <?php
-require_once 'queries.php';
-require_once 'dbCredentials.php';
-require_once 'initialize.php';
-
+require_once '../../Private/queries.php';
+require_once '../../Private/dbCredentials.php';
+require_once '../../Private/initialize.php';
 $searchString = "";
 $section = "";
 $subSection = "";
@@ -50,13 +49,13 @@ if(isset($_POST['point_value'])){
 		<title>UWO WebCLICKER</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" media="all" href="dev.css" />
+		<link rel="stylesheet" media="all" href="../dev.css" />
 	</head>
 
 <body>
      <header>
-		<a href="quiz_student.html">
-			<img id="logo" src="./images/logo.png"
+		<a href="quiz.php">
+			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
@@ -64,10 +63,10 @@ if(isset($_POST['point_value'])){
 		
 		<nav>
 			<ul>
-				<li><a href="sign_in.html">Log out</a></li>
-				<li><a href="change_password_student.html">Edit Account</a></li>				
-				<li class="selected"><a href="review_student.php">Review</a></li>
-				<li><a href="quiz_student.html">Quiz</a></li>
+				<li><a href="../../Private/logout.php">Log out</a></li>
+				<li><a href="change_password.php">Edit Account</a></li>				
+				<li class="selected"><a href="review.php">Review</a></li>
+				<li><a href="quiz.php">Quiz</a></li>
 			</ul>
 		</nav>
     </header>
@@ -76,7 +75,7 @@ if(isset($_POST['point_value'])){
 	  <div id="container">
 			<div class="pageTitle">Begin by searching or reviewing below</div>
 			
-			<form class="searchBar" action="search_results_student.php" method="post">
+			<form class="searchBar" action="search_results.php" method="post">
 					
 					<div>Search and select as many tags as you'd like to specify your search!</div>
 					
@@ -146,7 +145,7 @@ if(isset($_POST['point_value'])){
 					<p>Description: <?php echo $searchResults[$i]['TopicDescription'];?></p>
 					<p>Your score: 0/0</p>		
 					<div class="centered">
-						<form class="inlineBlock" action="view_question_student.php" method="post">
+						<form class="inlineBlock" action="view_question.php" method="post">
 							<input type="hidden" name="questionId" value="<?php echo $questions[$i]['QuestionId'];?> " />
 							<input type="submit" value="View" />
 						</form>
@@ -169,14 +168,14 @@ if(isset($_POST['point_value'])){
 		
 		<div class="validated">	
 			<a href="https://validator.w3.org/check?uri=referer">
-			   <img class="html5" src="./images/html5.png" alt="\'Valid\' HTML5" />
+			   <img class="html5" src="../images/html5.png" alt="\'Valid\' HTML5" />
 			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
 	</footer>
 	
-	<script src="./web_clicker.js"></script>
+	<script src="../../Private/web_clicker.js"></script>
 	
 	</body>
 </html>

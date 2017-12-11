@@ -77,7 +77,7 @@ function addCheckBoxOptions() {
     container.innerHTML += htmlElements;
 }
 function navigateToQuestions(){
-	window.location.href = "./questions_instructor.php";
+	window.location.href = "./questions.php";
 }
 
 function addText() {

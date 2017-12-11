@@ -39,11 +39,11 @@ require_once '../../Private/session.php';
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
-		<div class="header_user_type"><?php echo $access_type; ?></div>
+		<div class="header_user_type">Instructor</div>
 		
 		<nav>
 			<ul>
-				<li><a href="logout.php">Log out</a></li>
+				<li><a href="../../Private/logout.php">Log out</a></li>
 				<li><a href="change_password.php">Edit Account</a></li>
 				<li><a href="add_new_question.php">Add New Question</a></li>
 				<li class="selected"><a href="questions.php">Questions</a></li>

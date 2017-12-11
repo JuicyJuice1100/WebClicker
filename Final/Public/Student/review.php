@@ -41,7 +41,7 @@ require_once '../../Private/session.php';
 	  <div id="container">
 			<div class="pageTitle">Begin by searching or reviewing below</div>
 			
-			<form class="searchBar" action="search_results_student.php" method="post">
+			<form class="searchBar" action="search_results.php" method="post">
 					
 					<div>Search and select as many tags as you'd like to specify your search!</div>
 					
@@ -112,7 +112,7 @@ require_once '../../Private/session.php';
 					<p>Description: <?php echo $questions[$max]['TopicDescription'];?></p>
 					<p>Your score: 0/0</p>		
 					<div class="centered">
-						<form class="inlineBlock" action="view_question_student.php" method="post">
+						<form class="inlineBlock" action="view_question.php" method="post">
 							<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?> " />
 							<input type="submit" value="View" />
 						</form>

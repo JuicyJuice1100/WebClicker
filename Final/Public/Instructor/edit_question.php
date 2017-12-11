@@ -27,7 +27,7 @@ if(isset($_POST['questionId'])){
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
 		
-		<div class="header_user_type"><?php echo $access_type; ?></div>
+		<div class="header_user_type">Instructor</div>
 		
 		<nav>
 			<ul>

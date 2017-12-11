@@ -6,7 +6,8 @@ require_once '../Public/Student/displayGradeResults.php';
 require_once 'session.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $questionId = $_POST['questionId']; //Query Active Question
+    $question = getFirstActiveQuestion();
+    $questionId = $question['QuestionId'];
   
   //Redirect to same page with a GET:
   header('Location: grade.php');

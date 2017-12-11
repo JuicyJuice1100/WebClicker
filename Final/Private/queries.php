@@ -160,8 +160,9 @@
  function getQuestionsByKeyword($keyword){
         global $db;
         try {
+            $keyword = '%'.$keyword.'%';
             $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE '%'?'%'";
+                WHERE Keyword LIKE ?";
             $stmt = $db->prepare($query);
             $stmt->execute([$keyword]);
             return $stmt->fetchAll();
@@ -174,8 +175,9 @@
     function getQuestionsByKeywordAndPoints($keyword, $points){
         global $db;
         try {
+            $keyword = '%'.$keyword.'%';
             $query = "SELECT * FROM Question 
-                WHERE Keyword LIKE '%'?'%' AND NumberOfPoints = '?'";
+                WHERE Keyword LIKE ? AND NumberOfPoints = '?'";
             $stmt = $db->prepare($query);
             $stmt->execute([$keyword, $points]);
             return $stmt->fetchAll();
@@ -188,9 +190,10 @@
     function getIncorrectQuestionsByKeyword($keyword){
         global $db;
         try {
+            $keyword = '%'.$keyword.'%';
             $query = "SELECT * FROM Question 
                 INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId
-                WHERE Keyword LIKE '%'?'%' AND NumberOfCorrectAnswers < NumberOfPoints";
+                WHERE Keyword LIKE ? AND NumberOfCorrectAnswers < NumberOfPoints";
             $stmt = $db->prepare($query);
             $stmt->execute([$keyword]);
             return $stmt->fetchAll();
@@ -203,9 +206,10 @@
     function getIncorrectQuestionsByKeywordAndPoints($keyword, $points){
         global $db;
         try {
+            $keyword = '%'.$keyword.'%';
             $query = "SELECT * FROM Question 
                 INNER JOIN SubmittedSolutions ON SubmittedSolutions.QuestionId = Question.QuestionId
-                WHERE Keyword LIKE '%'?'%' AND NumberOfPoints = ? AND NumberOfCorrectAnswers < NumberOfPoints";
+                WHERE Keyword LIKE ? AND NumberOfPoints = ? AND NumberOfCorrectAnswers < NumberOfPoints";
             $stmt = $db->prepare($query);
             $stmt->execute([$keyword, $points]);
             return $stmt->fetchAll();
@@ -316,7 +320,7 @@
     global $db;
         try {
         $query = "UPDATE Student
-                SET hashedPassword = '$hashedPassword'
+                SET hashedPassword = '$hashedPassword',
                 PasswordChanges = PasswordChanges + 1
                 WHERE Username = '$username'";
         $stmt = $db->prepare($query);
@@ -426,7 +430,7 @@
     global $db;
         try {
         $query = "UPDATE Instructor
-                SET hashedPassword = ?
+                SET hashedPassword = ?,
                 PasswordChanges = PasswordChanges + 1
                 WHERE Username = ?";
         $stmt = $db->prepare($query);
