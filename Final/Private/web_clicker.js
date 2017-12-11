@@ -105,7 +105,7 @@ function displayQuestion(x) {
 }
 
 function redirect() {
-    var url = "http://webdev.cs.uwosh.edu/students/seymej72/TeamProject/grade.php";
+    var url = "../../Private/grade.php";
     window.location = url;
 }
 

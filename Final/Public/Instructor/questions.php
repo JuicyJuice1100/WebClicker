@@ -34,7 +34,7 @@ require_once '../../Private/session.php';
 
 <body>
     <header>
-		<a href="questions_instructor.php">
+		<a href="questions.php">
 			<img id="logo" src="../images/logo.png"
 				   width="250" alt="UWO WebCLICKER logo" />
 		</a>
@@ -111,7 +111,7 @@ require_once '../../Private/session.php';
 					<p>Class Average: <?php echo $questions[$max]['AveragePoints']. "/" . $questions[$max]['NumberOfPoints'];?></p>	
 					
 				<div class="centered">
-					<form class="inlineBlock" action="view_question_instructor.php" method="post">
+					<form class="inlineBlock" action="view_question.php" method="post">
 						<input type="hidden" name="questionId" value="<?php echo $questions[$max]['QuestionId'];?> " />
 						<input type="submit" value="View" />
 					</form>

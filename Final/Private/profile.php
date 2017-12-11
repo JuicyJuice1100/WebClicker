@@ -4,7 +4,7 @@ include('session.php');
 // simple profile page that determines user type and redirects them to appropriate home page
 
 if($_SESSION['instructor'] === true)
-	header("location: ./questions_instructor.php");
+	header("location: ../Public/Instructor/questions.php");
 else 
-	header("location: ./quiz_student.php");
+	header("location: ../Public/Student/quiz.php");
 ?>

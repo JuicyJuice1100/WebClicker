@@ -83,7 +83,8 @@ $question = getQuestionById($_POST['questionId']);
 
     <div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
   </footer>
-  
+  <?php echo '<script> document.getElementById("submitButton").disabled = true;</script>';
+  ?>
   <script src="../../Private/web_clicker.js"></script>
   <script src="../../Private/BarGraph.js"></script>
   </body>

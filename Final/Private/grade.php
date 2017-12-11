@@ -2,7 +2,7 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-require_once 'displayGradeResults.php';
+require_once '../Public/Student/displayGradeResults.php';
 require_once 'session.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

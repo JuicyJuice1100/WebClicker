@@ -2,7 +2,7 @@
 require_once 'queries.php';
 require_once 'dbCredentials.php';
 require_once 'initialize.php';
-require 'session.php';
+require_once 'session.php';
 
 function loadHtmlFile($questionId, $studentId){
   if(isset($questionId)){
@@ -15,31 +15,27 @@ function loadHtmlFile($questionId, $studentId){
           <title>UWO WebCLICKER - Student</title>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet" media="all" href="dev.css" />
+          <link rel="stylesheet" media="all" href="../Public/dev.css" />
           <script src="splashMsg.js"></script>
       </head>
   <body>
    <header>
-          <a href="quiz_student.html">
-              <img id="logo" src="./images/logo.png"
+          <a href="../Public/Student/quiz.php">
+              <img id="logo" src="../Public/images/logo.png"
                      width="250" alt="UWO WebCLICKER logo" />
           </a>
           
-          <div class="header_user_type"><?php echo $access_type;?></div>
+          <div class="header_user_type">Student</div>
 		
 		<nav>
 			<ul>
 				<li><a href="logout.php">Log out</a></li>
-				<li><a href="change_password_student.php">Edit Account</a></li>				
-				<li><a href="review_student.php">Review</a></li>
-				<li class="selected"><a href="quiz_student.php">Quiz</a></li>
+				<li><a href="../Public/Student/change_password.php">Edit Account</a></li>				
+				<li><a href="../Public/Student/review.php">Review</a></li>
+				<li class="selected"><a href="../Public/Student/quiz.php">Quiz</a></li>
 			</ul>
 		</nav>
     </header>
-
-    <div id="user_messages">
-    	<span>user: <?php echo $login_session; ?></span>
-	</div>
 
   <div id="content">
     <div id="container">
@@ -83,8 +79,10 @@ function loadHtmlFile($questionId, $studentId){
 		</a>
 		</div>
 
-		<div class="validated">
-		   <img class="html5" src="./Images/html5.png" alt="\'Valid\' HTML5" />
+		<div class="validated">	
+			<a href="https://validator.w3.org/check?uri=referer">
+			   <img class="html5" src="../Public/images/html5.png" alt="\'Valid\' HTML5" />
+			  </a>
 		</div>
 
 		<div id="copyright">&copy; 2017 - Univ. of Wisconsin Oshkosh </div>
@@ -95,7 +93,7 @@ function loadHtmlFile($questionId, $studentId){
     return 0;
 }
   else{
-    header('Location:quiz_student.php');  
+    header('Location:quiz.php');  
   }
 }
 

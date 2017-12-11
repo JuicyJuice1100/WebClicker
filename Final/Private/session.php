@@ -27,7 +27,7 @@ else {
 
 if(!isset($session)) {
 // mysql_close($connection); // close connection
-header('location: index.php'); // redirect to home
+header('location: ../Public/index.php'); // redirect to home
 }
 
 ?>
